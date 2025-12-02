@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>勤怠打刻</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('css')
+<style>
+ 
+</style>
+@endsection
+    @section('content')
     <h1>勤怠管理システム</h1>
     <p>{{ Auth::user()->name }}さん、お疲れ様です！</p>
         @if(session('message'))
@@ -28,5 +29,4 @@
         @csrf
         <button type="submit">ログアウト</button>
     </form>
-</body>
-</html>
+@endsection

@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>【管理者】勤怠詳細・編集</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('css')
+<style>
+ 
+</style>
+@endsection
+    @section('content')
     <h1>勤怠詳細・編集</h1>
     <p>対象ユーザー：{{ $attendance->user->name }}</p>
 
@@ -46,5 +47,4 @@
     </ul>
 
     <a href="{{ route('admin.attendance.list') }}">一覧に戻る</a>
-</body>
-</html>
+@endsection

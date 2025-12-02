@@ -34,4 +34,22 @@ class StampCorrectionRequestController extends Controller
 
         return redirect()->back()->with('message', '修正申請を送信しました。承認をお待ちください。');
     }
+    public function index()
+    {
+        // 承認待ち（is_approved が false）
+        $pendingRequests = StampCorrectionRequest::where('user_id', Auth::id())
+                                ->where('is_approved', false)
+                                ->with('attendance') // 日付などを出すため
+                                ->orderBy('created_at', 'desc')
+                                ->get();
+
+        // 承認済み（is_approved が true）
+        $approvedRequests = StampCorrectionRequest::where('user_id', Auth::id())
+                                ->where('is_approved', true)
+                                ->with('attendance')
+                                ->orderBy('created_at', 'desc')
+                                ->get();
+
+        return view('stamp_correction_request.index', compact('pendingRequests', 'approvedRequests'));
+    }
 }

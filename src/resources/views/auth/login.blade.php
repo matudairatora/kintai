@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>ログイン</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('css')
+<style>
+  
+</style>
+@endsection
+    @section('content')
+
     <h1>ログイン</h1>
 
     @if ($errors->any())
@@ -34,5 +36,4 @@
     </form>
 
     <p><a href="/register">会員登録はこちら</a></p>
-</body>
-</html>
+@endsection

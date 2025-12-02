@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>会員登録</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('css')
+<style>
+
+</style>
+@endsection
+    @section('content')
     <h1>会員登録</h1>
 
     @if ($errors->any())
@@ -42,5 +43,4 @@
 
         <button type="submit">登録する</button>
     </form>
-</body>
-</html>
+@endsection

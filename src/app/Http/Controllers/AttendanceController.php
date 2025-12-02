@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
+    
    public function index()
     {
         return view('attendance.index');
@@ -137,16 +138,36 @@ class AttendanceController extends Controller
 
         return redirect()->back()->with('message', '休憩を終了しました。');
     }
-    public function list()
+    public function list(Request $request) // Requestを使うので引数に追加
     {
         $user = Auth::user();
 
-        // 自分の勤怠を日付の新しい順に取得（1ページ5件）
-        $attendances = Attendance::where('user_id', $user->id)
-                                 ->orderBy('date', 'desc')
-                                 ->paginate(5);
+        // 1. カレンダー操作（パラメータがない場合は今月）
+        $currentDate = $request->input('month') 
+            ? Carbon::parse($request->input('month')) 
+            : Carbon::now();
 
-        return view('attendance.list', compact('attendances'));
+        // 月の開始日と終了日を取得
+        $startOfMonth = $currentDate->copy()->startOfMonth();
+        $endOfMonth = $currentDate->copy()->endOfMonth();
+
+        // 2. その月の勤怠データを取得
+        $attendances = Attendance::where('user_id', $user->id)
+                                 ->whereBetween('date', [$startOfMonth, $endOfMonth])
+                                 ->orderBy('date', 'asc') // 日付順にする
+                                 ->get();
+
+        // 3. 前月・翌月のリンク用データを作成
+        $previousMonth = $currentDate->copy()->subMonth()->format('Y-m');
+        $nextMonth = $currentDate->copy()->addMonth()->format('Y-m');
+        $currentMonthDisplay = $currentDate->format('Y/m');
+
+        return view('attendance.list', compact(
+            'attendances', 
+            'previousMonth', 
+            'nextMonth', 
+            'currentMonthDisplay'
+        ));
     }
 
     public function show($id)

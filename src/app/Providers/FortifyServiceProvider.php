@@ -29,9 +29,15 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Fortify::createUsersUsing(CreateNewUser::class);
+        $this->app->bind(
+        \Laravel\Fortify\Http\Requests\LoginRequest::class,
+        \App\Http\Requests\LoginRequest::class
+        );
+
         Fortify::registerView(function () {
          return view('auth.register');
-     });
+         });
+         
 
      Fortify::loginView(function () {
          return view('auth.login');

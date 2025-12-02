@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>勤怠詳細</title>
-    <style>
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; width: 30%; }
-    </style>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('css')
+<style>
+ 
+</style>
+@endsection
+    @section('content')
     <h1>勤怠詳細</h1>
 
     <table>
@@ -74,5 +70,4 @@
     @endif
 
     <a href="{{ route('attendance.list') }}">一覧に戻る</a>
-</body>
-</html>
+@endsection
