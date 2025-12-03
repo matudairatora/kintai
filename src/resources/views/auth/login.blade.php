@@ -1,39 +1,47 @@
-@extends('layouts.app')
-
-@section('css')
-<style>
-  
-</style>
-@endsection
-    @section('content')
-
-    <h1>ログイン</h1>
-
-    @if ($errors->any())
-        <div style="color: red;">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>勤怠管理システム</title>
+    
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header__left">
+            <img src="{{ asset('img/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH" class="header__logo">
         </div>
-    @endif
+
+</header>
+
+    <main class="content">
+<div class="form-wrapper">
+    <h1 class="form-title">ログイン</h1>
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
         
-        <div>
-            <label>メールアドレス:</label>
-            <input type="email" name="email" required>
+        <!-- メールアドレス -->
+        <div class="form-item">
+            <label class="form-label">メールアドレス</label>
+            <input class="form-input" type="email" name="email" value="{{ old('email') }}">
         </div>
 
-        <div>
-            <label>パスワード:</label>
-            <input type="password" name="password" required>
+        <!-- パスワード -->
+        <div class="form-item">
+            <label class="form-label">パスワード</label>
+            <input class="form-input" type="password" name="password">
         </div>
 
-        <button type="submit">ログイン</button>
+        <button class="form-button" type="submit">ログインする</button>
     </form>
 
-    <p><a href="/register">会員登録はこちら</a></p>
-@endsection
+    <div class="form-link">
+        <a href="{{ route('register') }}">会員登録はこちら</a>
+    </div>
+</div>
+</main>
+</body>
+</html>

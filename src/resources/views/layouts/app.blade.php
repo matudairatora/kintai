@@ -13,7 +13,6 @@
             <img src="{{ asset('img/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH" class="header__logo">
         </div>
 
-       
         <nav class="header__right">
             <ul class="header-nav">
                 @if(Auth::check())

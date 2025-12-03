@@ -1,0 +1,102 @@
+/* 勤怠画面（打刻ページ）専用のスタイル */
+
+/* コンテンツエリア全体の中央寄せ */
+.attendance__content {
+    width: 100%;
+    text-align: center;
+    padding-top: 40px;
+}
+
+/* ステータスタグ（勤務外、出勤中など） */
+.attendance__tag {
+    display: inline-block;
+    background-color: #ddd;
+    /* グレーの背景 */
+    color: #555;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 20px;
+    border-radius: 20px;
+    /* 角丸のピル型 */
+    margin-bottom: 20px;
+}
+
+/* 日付表示 */
+.attendance__date {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* 時間表示 */
+.attendance__time {
+    font-size: 64px;
+    /* かなり大きく */
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 40px;
+    line-height: 1.2;
+}
+
+/* メッセージ（お疲れ様でした） */
+.attendance__message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* ボタン配置エリア */
+.attendance__button-area {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    /* ボタン間の隙間 */
+    margin-bottom: 40px;
+}
+
+/* 共通ボタン設定 */
+.attendance__button {
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    min-width: 140px;
+    /* ボタンの幅を揃える */
+    border: none;
+}
+
+.attendance__button:hover {
+    opacity: 0.8;
+}
+
+/* 黒いボタン（出勤、退勤などメインアクション） */
+.attendance__button--black {
+    background-color: #000;
+    color: #fff;
+}
+
+/* 白いボタン（休憩などサブアクション） */
+.attendance__button--white {
+    background-color: #fff;
+    color: #000;
+    /* 必要なら枠線を追加 */
+    /* border: 1px solid #ddd; */
+}
+
+/* メッセージ表示エリア（成功・エラー） */
+.attendance__alert {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.attendance__alert--success {
+    color: green;
+}
+
+.attendance__alert--danger {
+    color: red;
+}

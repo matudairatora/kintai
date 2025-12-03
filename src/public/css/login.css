@@ -1,0 +1,145 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    color: #333;
+    background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: #f7f7f7;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ヘッダー */
+.header {
+    background-color: #000000;
+    display: flex;
+    color: #f7f7f7;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    height: 70px;
+
+}
+
+.header__logo {
+    height: 30px;
+    width: auto;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.header-nav__link {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.header-nav__button {
+    color: #f7f7f7;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* メインコンテンツ */
+.content {
+    flex: 1;
+    /* フッターを下に押し下げる */
+    background-color: #fff;
+    padding: 40px;
+    width: 100%;
+    max-width: 1200px;
+    /* 横幅の制限 */
+    margin: 0 auto;
+}
+
+/* フォーム全体のラッパー（中央寄せ） */
+.form-wrapper {
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    /* フォームの横幅を制限 */
+    margin: 0 auto;
+    /* 中央配置 */
+    padding: 40px;
+    border-radius: 5px;
+    
+}
+
+/* タイトル */
+.form-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* 各入力項目のブロック */
+.form-item {
+    margin-bottom: 20px;
+}
+
+/* 入力欄のデザイン */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    /* 薄いグレーの背景 */
+    box-sizing: border-box;
+    /* paddingを含めた幅計算 */
+    font-size: 16px;
+}
+
+/* ボタンのデザイン */
+.form-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #000;
+    /* ヘッダーに合わせた黒 */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: opacity 0.3s;
+}
+
+.form-button:hover {
+    opacity: 0.8;
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* リンク（会員登録はこちら 等） */
+.form-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    font-size: 14px;
+    text-decoration: none;
+}

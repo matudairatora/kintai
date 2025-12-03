@@ -1,0 +1,159 @@
+/* 勤怠詳細画面のスタイル */
+
+/* コンテンツエリア全体 */
+.detail-wrapper {
+    background-color: #f7f7f7;
+    padding: 20px;
+    min-height: 80vh;
+}
+
+/* ページタイトル「| 勤怠詳細」 */
+.detail-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px auto 40px;
+    width: 100%;
+    max-width: 800px;
+    padding-left: 10px;
+    border-left: 5px solid #000;
+    line-height: 1.2;
+}
+
+/* フォーム全体 */
+.detail-form {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+/* テーブルスタイル */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.detail-table th,
+.detail-table td {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+/* 項目名（左側） */
+.detail-table th {
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    width: 150px;
+    color: #333;
+}
+
+/* 入力エリア（右側） */
+.detail-table td {
+    text-align: left;
+}
+
+/* 年月日表示 */
+.detail-date-text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 入力フィールド */
+.detail-input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    width: 120px;
+    text-align: center;
+}
+
+/* 読み取り専用時のスタイル */
+.detail-text {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 0;
+}
+
+/* 備考（テキストエリア） */
+.detail-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+/* 時間範囲の波線 "~" */
+.range-separator {
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+/* 赤字メッセージ（承認待ち） */
+.pending-message {
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* ボタンエリア */
+.button-area {
+    text-align: center;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+/* 黒い修正ボタン */
+.btn-submit {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-submit:hover {
+    opacity: 0.8;
+}
+
+/* 承認済みボタン（グレー） */
+.btn-approved {
+    background-color: #666;
+    /* グレー */
+    color: #fff;
+    border: none;
+    padding: 10px 40px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: default;
+    /* クリック不可に見せる */
+    pointer-events: none;
+    /* クリック無効化 */
+}
+
+/* 名前表示など */
+.user-name {
+    font-size: 16px;
+    font-weight: bold;
+}

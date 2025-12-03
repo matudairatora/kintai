@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use App\Models\User;
+use Carbon\Carbon;
 use App\Http\Requests\AttendanceRequest;
 
 class AttendanceController extends Controller
@@ -51,6 +53,37 @@ class AttendanceController extends Controller
                          ->with('message', '勤怠情報を修正しました。');
     }
 
+    public function staffList(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // 月を取得（指定がなければ今月）
+        $currentDate = $request->input('month') 
+            ? Carbon::parse($request->input('month')) 
+            : Carbon::now();
+
+        $startOfMonth = $currentDate->copy()->startOfMonth();
+        $endOfMonth = $currentDate->copy()->endOfMonth();
+
+        // そのユーザーの、その月の勤怠を取得
+        $attendances = Attendance::where('user_id', $user->id)
+                                 ->whereBetween('date', [$startOfMonth, $endOfMonth])
+                                 ->orderBy('date', 'asc')
+                                 ->get();
+
+        // 前月・翌月ボタン用
+        $previousMonth = $currentDate->copy()->subMonth()->format('Y-m');
+        $nextMonth = $currentDate->copy()->addMonth()->format('Y-m');
+        $currentMonthDisplay = $currentDate->format('Y/m');
+
+        return view('admin.attendance.staff_list', compact(
+            'user',
+            'attendances',
+            'previousMonth',
+            'nextMonth',
+            'currentMonthDisplay'
+        ));
+    }
   
   
 }

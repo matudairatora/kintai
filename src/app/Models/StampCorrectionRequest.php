@@ -13,6 +13,9 @@ class StampCorrectionRequest extends Model
         'attendance_id',
         'reason',
         'is_approved',
+        'status',          
+        'new_start_time',  
+        'new_end_time', 
     ];
 
     // ユーザーとの関係

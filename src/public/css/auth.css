@@ -1,0 +1,109 @@
+
+
+/* リンク（会員登録はこちら 等） */
+.form-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* フォームのラッパーを微調整（common.cssの設定をベースにしつつ上書き） */
+.form-wrapper {
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    margin: 40px auto;
+    /* 上下に余白 */
+    padding: 40px;
+    /* 枠線や影が必要ない場合は以下を調整してください */
+    box-shadow: none;
+}
+
+/* タイトル "会員登録" "ログイン" */
+.form-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #000;
+}
+
+/* 各項目のブロック */
+.form-item {
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+/* ラベル（項目名） */
+.form-label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+/* 入力欄 */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* 薄いグレーの枠線 */
+    border-radius: 4px;
+    background-color: #fff;
+    /* 画像に合わせて白背景に変更 */
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 40px;
+}
+
+/* 黒い送信ボタン */
+.form-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #000;
+    /* 黒背景 */
+    color: #fff;
+    /* 白文字 */
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    display: block;
+}
+
+.form-button:hover {
+    opacity: 0.8;
+}
+
+/* 下部のリンクエリア */
+.form-link {
+    margin-top: 25px;
+    text-align: center;
+}
+
+/* 青いリンク文字 */
+.form-link a {
+    color: #3b82f6;
+    /* 鮮やかな青（画像に近い色） */
+    text-decoration: none;
+    font-size: 12px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,105 @@
+/* 勤怠一覧画面専用のスタイル */
+
+/* ページタイトル */
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 40px auto 20px;
+    /* 中央寄せ用margin */
+    width: 100%;
+    max-width: 900px;
+    /* テーブル幅に合わせる */
+    text-align: left;
+    /* 左寄せ */
+    color: #000;
+}
+
+/* 勤怠一覧のパイプ装飾 | */
+/* もしHTML側で | を入れていない場合、
+  ::before疑似要素で作成することも可能ですが、
+  今回はシンプルにHTMLテキストとして扱う想定で調整します。
+  必要であれば以下のように調整してください。
+*/
+
+/* 月ナビゲーション */
+.month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto 30px;
+    width: 100%;
+    max-width: 900px;
+    border-bottom: 1px solid #ddd;
+    /* 下線があれば */
+    /* 画像のような白い角丸ボックス風にする場合 */
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    /* 少し角丸 */
+    box-sizing: border-box;
+}
+
+.month-nav__link {
+    color: #666;
+    /* 少し薄いグレー */
+    text-decoration: none;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 5px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.month-nav__link:hover {
+    background-color: #f0f0f0;
+}
+
+.month-nav__current {
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* テーブル */
+.attendance-table {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    /* 枠線を重ねる */
+    background-color: #fff;
+}
+
+.attendance-table th,
+.attendance-table td {
+    padding: 15px 10px;
+    text-align: left;
+    /* 左寄せ（画像に合わせるならcenterもあり） */
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* ヘッダー固有 */
+.attendance-table th {
+    font-weight: bold;
+    color: #000;
+    /* 必要なら背景色を指定 */
+    /* background-color: #fff; */
+}
+
+/* データ行固有 */
+.attendance-table td {
+    color: #333;
+}
+
+/* 詳細リンク */
+.detail-link {
+    color: #333;
+    /* 黒に近い色 */
+    text-decoration: none;
+    font-size: 14px;
+}

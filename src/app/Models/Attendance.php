@@ -10,11 +10,11 @@ class Attendance extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id',
-        'date',
-        'start_time',
-        'end_time',
-        'status',
+       'user_id',
+        'date',         // 日付
+        'start_time',   // 出勤時間
+        'end_time',     // 退勤時間
+        'status',   
     ];
     
     public function getTotalRestTimeAttribute()

@@ -7,13 +7,34 @@ use App\Models\Attendance;
 use App\Models\Rest; 
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon; 
+use App\Models\StampCorrectionRequest;
 
 class AttendanceController extends Controller
 {
     
-   public function index()
+  public function index()
     {
-        return view('attendance.index');
+        $user = Auth::user();
+        $date = Carbon::today();
+        
+        // 今日の勤怠レコードを取得
+        $attendance = Attendance::where('user_id', $user->id)->where('date', $date)->first();
+
+        // ステータス判定ロジック
+        // 0=勤務外, 1=出勤中, 2=休憩中, 3=退勤済
+        $status = 0; 
+
+        if ($attendance) {
+            if ($attendance->status == '退勤済' || $attendance->end_time !== null) {
+                $status = 3;
+            } elseif ($attendance->status == '休憩中') {
+                $status = 2;
+            } elseif ($attendance->status == '出勤中') {
+                $status = 1;
+            }
+        }
+
+        return view('attendance.index', compact('status'));
     }
 
     public function store(Request $request)
@@ -138,7 +159,7 @@ class AttendanceController extends Controller
 
         return redirect()->back()->with('message', '休憩を終了しました。');
     }
-    public function list(Request $request) // Requestを使うので引数に追加
+    public function list(Request $request)
     {
         $user = Auth::user();
 
@@ -151,19 +172,36 @@ class AttendanceController extends Controller
         $startOfMonth = $currentDate->copy()->startOfMonth();
         $endOfMonth = $currentDate->copy()->endOfMonth();
 
-        // 2. その月の勤怠データを取得
+        // 2. その月の勤怠データを取得し、日付(Y-m-d)をキーにしてコレクション化
         $attendances = Attendance::where('user_id', $user->id)
                                  ->whereBetween('date', [$startOfMonth, $endOfMonth])
-                                 ->orderBy('date', 'asc') // 日付順にする
-                                 ->get();
+                                 ->get()
+                                 ->keyBy(function($item) {
+                                     return Carbon::parse($item->date)->format('Y-m-d');
+                                 });
 
-        // 3. 前月・翌月のリンク用データを作成
+        // 3. カレンダーデータの作成（勤怠がない日も含めるためのループ処理）
+        $calendar = [];
+        for ($date = $startOfMonth->copy(); $date->lte($endOfMonth); $date->addDay()) {
+            $dateStr = $date->format('Y-m-d');
+            
+            // その日の勤怠データがあれば取得、なければnull
+            $attendanceForDay = $attendances->get($dateStr);
+
+            $calendar[] = [
+                'date' => $dateStr,
+                'date_display' => $date->format('m/d') . '(' . $date->isoFormat('ddd') . ')', // 例: 06/01(木)
+                'attendance' => $attendanceForDay,
+            ];
+        }
+
+        // 4. 前月・翌月のリンク用データを作成
         $previousMonth = $currentDate->copy()->subMonth()->format('Y-m');
         $nextMonth = $currentDate->copy()->addMonth()->format('Y-m');
-        $currentMonthDisplay = $currentDate->format('Y/m');
+        $currentMonthDisplay = $currentDate->format('Y/m'); // 例: 2023/06
 
         return view('attendance.list', compact(
-            'attendances', 
+            'calendar', 
             'previousMonth', 
             'nextMonth', 
             'currentMonthDisplay'
@@ -172,14 +210,31 @@ class AttendanceController extends Controller
 
     public function show($id)
     {
-        // データを取得（休憩データも一緒に持ってくる）
         $attendance = Attendance::with('rests')->find($id);
 
-        // データがない、または自分のものでない場合はエラーにする
         if (!$attendance || $attendance->user_id !== Auth::id()) {
-            abort(404); // または 403 Forbidden
+            abort(404);
         }
 
-        return view('attendance.show', compact('attendance'));
+        // 申請状況のチェック
+        $is_pending = false;
+        $is_approved = false;
+        
+        if (class_exists('App\Models\StampCorrectionRequest')) {
+            // 最新の申請を取得してステータスを確認
+            $latestRequest = StampCorrectionRequest::where('attendance_id', $attendance->id)
+                                ->latest() // 最新順
+                                ->first();
+            
+            if ($latestRequest) {
+                if ($latestRequest->status == '承認待ち') {
+                    $is_pending = true;
+                } elseif ($latestRequest->status == '承認済み') {
+                    $is_approved = true;
+                }
+            }
+        }
+
+        return view('attendance.show', compact('attendance', 'is_pending', 'is_approved'));
     }
 }

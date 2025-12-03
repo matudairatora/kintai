@@ -17,8 +17,8 @@ class CreateStampCorrectionRequestsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('attendance_id')->constrained()->onDelete('cascade');
-            $table->string('reason'); // 修正理由
-            $table->boolean('is_approved')->default(false); // 承認されたかどうか
+            $table->string('reason'); 
+            $table->boolean('is_approved')->default(false); 
             $table->timestamps();
         
         
