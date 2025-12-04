@@ -1,65 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<style>
-    /* ページ全体のスタイル調整 */
-    .staff-list-container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 30px 0;
-    }
-
-    /* タイトルデザイン（左側の黒いバー） */
-    .page-title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 40px;
-        padding-left: 15px;
-        border-left: 5px solid #333; /* 黒い縦線 */
-        text-align: left;
-        color: #333;
-    }
-
-    /* テーブルデザイン */
-    .staff-table {
-        width: 100%;
-        border-collapse: collapse; /* セルの隙間をなくす */
-        background-color: #fff; /* 背景色を白に */
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* 軽い影をつける */
-        border-radius: 5px;
-        overflow: hidden; /* 角丸を有効にするため */
-    }
-
-    .staff-table th, .staff-table td {
-        padding: 15px 20px;
-        text-align: center;
-        font-size: 14px;
-        color: #333;
-    }
-
-    /* ヘッダー行 */
-    .staff-table th {
-        font-weight: bold;
-        border-bottom: 1px solid #ddd;
-    }
-
-    /* データ行 */
-    .staff-table td {
-        border-bottom: 1px solid #eee;
-    }
-
-    /* 詳細リンク */
-    .detail-link {
-        color: #333;
-        text-decoration: none;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    
-    .detail-link:hover {
-        text-decoration: underline;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/admin_staff.css') }}">
 @endsection
 
 @section('content')

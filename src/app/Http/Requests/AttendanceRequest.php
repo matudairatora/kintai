@@ -29,7 +29,7 @@ class AttendanceRequest extends FormRequest
             'end_time' => 'required|after:start_time',
             'break_start' => 'nullable', 
             'break_end' => 'nullable',
-            'reason' => 'required',
+            'reason' => 'nullable',
         ];
     }
 
@@ -52,23 +52,29 @@ class AttendanceRequest extends FormRequest
                  $validator->errors()->add('start_time', '出勤時間もしくは退勤時間が不適切な値です');
             }
 
-            // 2. 休憩開始時間のチェック（出勤より前、または退勤より後）
-            if ($breakStart) {
-                if (($start && $breakStart->lt($start)) || ($end && $breakStart->gt($end))) {
-                    $validator->errors()->add('break_start', '休憩時間が不適切な値です');
+           // 2. 休憩時間のチェック（管理者画面からの配列データ 'rests' に対応）
+            if (isset($data['rests']) && is_array($data['rests'])) {
+                foreach ($data['rests'] as $id => $restData) {
+                    $restStart = isset($restData['start_time']) && $restData['start_time'] ? Carbon::parse($restData['start_time']) : null;
+                    $restEnd = isset($restData['end_time']) && $restData['end_time'] ? Carbon::parse($restData['end_time']) : null;
+
+                    // 休憩開始と終了の整合性 (開始 > 終了 になっていないか)
+                    if ($restStart && $restEnd && $restStart->gt($restEnd)) {
+                        $validator->errors()->add('rests', '休憩開始時間が休憩終了時間より後になっています。');
+                    }
+
+                    // 勤務時間との整合性 (休憩開始 < 出勤)
+                    if ($start && $restStart && $restStart->lt($start)) {
+                        $validator->errors()->add('rests', '休憩時間が勤務時間外（出勤前）に設定されています。');
+                    }
+
+                    // 勤務時間との整合性 (休憩終了 > 退勤)
+                    if ($end && $restEnd && $restEnd->gt($end)) {
+                        $validator->errors()->add('rests', '休憩時間が勤務時間外（退勤後）に設定されています。');
+                    }
                 }
             }
 
-            // 3. 休憩終了時間のチェック（退勤より後）
-            if ($breakEnd) {
-                if ($end && $breakEnd->gt($end)) {
-                    $validator->errors()->add('break_end', '休憩時間もしくは退勤時間が不適切な値です');
-                }
-                // 休憩終了が開始より前の場合も不適切
-                if ($breakStart && $breakEnd->lt($breakStart)) {
-                     $validator->errors()->add('break_end', '休憩時間が不適切な値です');
-                }
-            }
         });
     }
 
@@ -78,7 +84,6 @@ class AttendanceRequest extends FormRequest
             'start_time.required' => '出勤時間を入力してください',
             'end_time.required' => '退勤時間を入力してください',
             'end_time.after' => '出勤時間もしくは退勤時間が不適切な値です',
-            'reason.required' => '備考を記入してください',
         ];
     }
 

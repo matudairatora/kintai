@@ -1,0 +1,123 @@
+/* スタッフ別勤怠一覧画面のスタイル */
+
+body {
+    background-color: #f7f7f7;
+}
+
+/* ラッパー */
+.staff-list-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* ページタイトル「| 〇〇さんの勤怠」 */
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    padding-left: 10px;
+    border-left: 5px solid #000;
+    line-height: 1.2;
+}
+
+/* 月ナビゲーション（白背景、角丸） */
+.month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    /* 角丸 */
+    /* 影が必要ならコメントアウトを外す */
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.05); */
+}
+
+.month-nav__link {
+    color: #999;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s;
+}
+
+.month-nav__link:hover {
+    color: #333;
+}
+
+.month-nav__current {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* テーブルスタイル */
+.staff-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    margin-bottom: 30px;
+}
+
+.staff-table th,
+.staff-table td {
+    padding: 15px 10px;
+    text-align: center;
+    /* 中央寄せ */
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+}
+
+/* ヘッダー */
+.staff-table th {
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    background-color: #fff;
+}
+
+/* 詳細リンク */
+.detail-link {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.detail-link:hover {
+    opacity: 0.7;
+}
+
+/* CSV出力ボタンエリア */
+.button-area {
+    text-align: right;
+    /* 右寄せ */
+    margin-top: 20px;
+}
+
+/* 黒いCSV出力ボタン */
+.btn-csv {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-csv:hover {
+    opacity: 0.8;
+}

@@ -19,6 +19,16 @@ class StampCorrectionRequestController extends Controller
         return view('admin.stamp_correction_request.list', compact('requests'));
     }
 
+    public function show($id)
+    {
+        // 申請IDからデータを取得
+        $correctionRequest = StampCorrectionRequest::with(['user', 'attendance.rests'])->findOrFail($id);
+        
+        // 関連する勤怠データ
+        $attendance = $correctionRequest->attendance;
+
+        return view('admin.stamp_correction_request.show', compact('correctionRequest', 'attendance'));
+    }
     // 承認アクション
     public function approve($id)
     {
