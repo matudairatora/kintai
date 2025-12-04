@@ -42,9 +42,29 @@
 8.  `php artisan test`
 
 ### 管理者ユーザー
--   name:管理者太郎
--   email：admin@example.com
--   password:password
+1.  name:管理者太郎
+    email：admin@example.com
+    password:password
+
+### 一般ユーザー
+1.  name:西怜奈
+    email:reina.n@coachtech.com'
+    password:password
+2.  name:山田太郎
+    email:taro.y@coachtech.com
+    password:password
+3.  name:増田一世
+    email:issei.m@coachtech.com
+    password:password
+4.  name:山本敬吉
+    email:keikichi.y@coachtech.com
+    password:password
+5.  name:秋田朋美
+    email:tomomi.a@coachtech.com
+    password:password
+6.  name:中西教夫
+    email:norio.n@coachtech.com
+    password:password
 
 ### 使用技術
 - PHP 8.0
@@ -59,4 +79,4 @@
 ### URL
 - 開発環境 http://localhost/
 - phpMyAdmin http://localhost:8080/
-- MailHog http://localhost:8025# kintai
+- MailHog http://localhost:8025/
