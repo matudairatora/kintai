@@ -28,7 +28,7 @@ class Attendance extends Model
             }
         }
         
-        return gmdate('H:i:s', $totalSeconds);
+        return gmdate('H:i', $totalSeconds);
     }
 
     // 勤務時間の合計（退勤 - 出勤 - 休憩合計）
@@ -54,7 +54,7 @@ class Attendance extends Model
             }
         }
 
-        return gmdate('H:i:s', $staySeconds - $restSeconds);
+        return gmdate('H:i', $staySeconds - $restSeconds);
     }
 
 

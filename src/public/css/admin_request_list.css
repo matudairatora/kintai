@@ -1,0 +1,118 @@
+/* 管理者申請一覧画面のスタイル */
+
+body {
+    background-color: #f7f7f7;
+}
+
+/* ラッパー */
+.request-list-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* ページタイトル「| 申請一覧」 */
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    padding-left: 10px;
+    border-left: 5px solid #000;
+    line-height: 1.2;
+}
+
+/* タブエリア */
+.tab-wrap {
+    width: 100%;
+}
+
+/* ラジオボタンは非表示 */
+input[name="tab-item"] {
+    display: none;
+}
+
+/* タブラベル（承認待ち・承認済み） */
+.tab-label {
+    display: inline-block;
+    padding: 10px 40px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #999;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+
+.tab-label:hover {
+    color: #333;
+}
+
+/* 選択されているタブのスタイル */
+#tab1:checked~.tab-label[for="tab1"],
+#tab2:checked~.tab-label[for="tab2"] {
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+
+/* タブの下の長い線 */
+.tab-border {
+    border-bottom: 1px solid #ccc;
+    margin-top: -2px;
+    margin-bottom: 30px;
+}
+
+/* タブコンテンツ（初期状態は非表示） */
+.tab-content {
+    display: none;
+    width: 100%;
+}
+
+/* 選択されたタブに対応するコンテンツを表示 */
+#tab1:checked~#content1,
+#tab2:checked~#content2 {
+    display: block;
+}
+
+/* テーブルスタイル */
+.request-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.request-table th,
+.request-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+/* ヘッダー */
+.request-table th {
+    font-weight: bold;
+    color: #000;
+}
+
+/* データ行 */
+.request-table td {
+    color: #333;
+}
+
+/* 詳細リンク */
+.detail-link {
+    color: #000;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.detail-link:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}

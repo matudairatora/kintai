@@ -1,0 +1,124 @@
+/* 管理者勤怠詳細画面のスタイル */
+
+/* ページ全体の背景（念のため） */
+body {
+    background-color: #f7f7f7;
+}
+
+/* コンテンツラッパー */
+.detail-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* ページタイトル「| 勤怠詳細」 */
+.detail-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    padding-left: 10px;
+    border-left: 5px solid #000;
+    /* 黒い縦線 */
+    line-height: 1.2;
+}
+
+/* フォーム全体を囲む白いボックス */
+.detail-form {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    /* うっすら影 */
+}
+
+/* テーブルスタイル */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+}
+
+.detail-table th,
+.detail-table td {
+    padding: 20px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+/* 項目名（左側） */
+.detail-table th {
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    width: 150px;
+    color: #333;
+}
+
+/* 入力エリア（右側） */
+.detail-table td {
+    text-align: left;
+}
+
+/* テキスト表示（名前や日付など） */
+.detail-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* 入力フィールド */
+.detail-input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    width: 140px;
+    /* 時間入力などに適した幅 */
+    text-align: center;
+}
+
+/* 備考などのテキストエリア */
+.detail-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+    box-sizing: border-box;
+    min-height: 80px;
+}
+
+/* 時間範囲の波線 "~" */
+.range-separator {
+    margin: 0 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ボタンエリア */
+.button-area {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 修正ボタン（黒） */
+.btn-submit {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 60px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-submit:hover {
+    opacity: 0.8;
+}

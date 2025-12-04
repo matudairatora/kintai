@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\StampCorrectionRequestController;
 use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,8 @@ use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
 
 Route::get('/', function () {
     return redirect('/login');
@@ -42,9 +45,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::patch('/attendance/{id}', [AdminAttendanceController::class, 'update'])->name('admin.attendance.update');
     Route::get('/stamp_correction_request/list', [App\Http\Controllers\Admin\StampCorrectionRequestController::class, 'index'])
         ->name('admin.stamp_correction_request.list');
+    Route::get('/stamp_correction_request/show/{id}', [App\Http\Controllers\Admin\StampCorrectionRequestController::class, 'show'])
+        ->name('admin.stamp_correction_request.show');
     Route::get('/stamp_correction_request/approve/{id}', [App\Http\Controllers\Admin\StampCorrectionRequestController::class, 'approve'])
         ->name('admin.stamp_correction_request.approve');
     Route::get('/staff/list', [App\Http\Controllers\Admin\StaffController::class, 'index'])->name('admin.staff.list');
     Route::get('/attendance/staff/{id}', [AdminAttendanceController::class, 'staffList'])->name('admin.attendance.staff_list');
+    Route::get('/attendance/staff/{id}/csv', [AdminAttendanceController::class, 'exportCsv'])->name('admin.attendance.csv_export');
 });
 

@@ -1,50 +1,91 @@
 @extends('layouts.app')
 
 @section('css')
-<style>
- 
-</style>
+<link rel="stylesheet" href="{{ asset('css/admin_attendance_detail.css') }}">
 @endsection
-    @section('content')
-    <h1>勤怠詳細・編集</h1>
-    <p>対象ユーザー：{{ $attendance->user->name }}</p>
 
-    <form action="{{ route('admin.attendance.update', $attendance->id) }}" method="POST">
+@section('content')
+<div class="detail-wrapper">
+    <h2 class="detail-title">勤怠詳細</h2>
+
+    <form action="{{ route('admin.attendance.update', $attendance->id) }}" method="POST" class="detail-form">
         @csrf
-        @method('PATCH') <div>
-            <label>日付：</label>
-            <span>{{ $attendance->date }}</span>
-        </div>
-        <br>
+        @method('PATCH')
 
-        <div>
-            <label>出勤時間：</label>
-            <input type="time" name="start_time" value="{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}">
-        </div>
-        <br>
+        {{-- ▼▼▼ エラーメッセージ表示を追加 ▼▼▼ --}}
+        @if ($errors->any())
+            <div style="background-color: #ffe6e6; color: red; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        {{-- ▲▲▲ 追加ここまで ▲▲▲ --}}
 
-        <div>
-            <label>退勤時間：</label>
-            <input type="time" name="end_time" value="{{ $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '' }}">
-        </div>
-        <br>
+        <table class="detail-table">
+            <!-- 名前 -->
+            <tr>
+                <th>名前</th>
+                <td>
+                    <span class="detail-text">{{ $attendance->user->name }}</span>
+                </td>
+            </tr>
 
-        <div>
-            <label>ステータス：</label>
-            <input type="text" name="status" value="{{ $attendance->status }}">
-        </div>
-        <br>
+            <!-- 日付 -->
+            <tr>
+                <th>日付</th>
+                <td>
+                    <span class="detail-text">
+                        {{ \Carbon\Carbon::parse($attendance->date)->format('Y年n月j日') }}
+                    </span>
+                </td>
+            </tr>
 
-        <button type="submit">変更を保存する</button>
+            <!-- 出勤・退勤 -->
+            <tr>
+                <th>出勤・退勤</th>
+                <td>
+                    {{-- old()を使って入力値を保持 --}}
+                    <input type="time" name="start_time" class="detail-input" 
+                           value="{{ old('start_time', \Carbon\Carbon::parse($attendance->start_time)->format('H:i')) }}">
+                    <span class="range-separator">～</span>
+                    <input type="time" name="end_time" class="detail-input" 
+                           value="{{ old('end_time', $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '') }}">
+                </td>
+            </tr>
+
+            <!-- 休憩（編集可能） -->
+            @foreach($attendance->rests as $index => $rest)
+            <tr>
+                <th>休憩{{ $index + 1 }}</th>
+                <td>
+                    <input type="hidden" name="rests[{{ $rest->id }}][id]" value="{{ $rest->id }}">
+                    
+                    {{-- 配列形式のold値取得 --}}
+                    <input type="time" name="rests[{{ $rest->id }}][start_time]" class="detail-input" 
+                           value="{{ old('rests.'.$rest->id.'.start_time', \Carbon\Carbon::parse($rest->start_time)->format('H:i')) }}">
+                    <span class="range-separator">～</span>
+                    <input type="time" name="rests[{{ $rest->id }}][end_time]" class="detail-input" 
+                           value="{{ old('rests.'.$rest->id.'.end_time', $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '') }}">
+                </td>
+            </tr>
+            @endforeach
+
+            <!-- 備考 -->
+            <tr>
+                <th>備考</th>
+                <td>
+                    <textarea name="reason" class="detail-textarea" placeholder="備考">{{ old('reason', $attendance->reason) }}</textarea>
+                </td>
+            </tr>
+        </table>
+
+        <div class="button-area">
+            <button type="submit" class="btn-submit">修正</button>
+        </div>
+
     </form>
-
-    <hr>
-    <h3>休憩ログ（参照のみ）</h3>
-    <ul>
-        @foreach($attendance->rests as $rest)
-            <li>{{ $rest->start_time }} 〜 {{ $rest->end_time }}</li>
-        @endforeach
-    </ul>
-
-    <a href="{{ route('admin.attendance.list') }}">一覧に戻る</a>
+</div>
 @endsection

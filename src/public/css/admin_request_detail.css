@@ -1,0 +1,119 @@
+/* 管理者申請詳細（承認）画面のスタイル */
+
+body {
+    background-color: #f7f7f7;
+}
+
+.detail-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* タイトル「| 勤怠詳細」 */
+.detail-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    padding-left: 10px;
+    border-left: 5px solid #000;
+    line-height: 1.2;
+}
+
+/* コンテナ */
+.detail-container {
+    background-color: #fff;
+    padding: 40px;
+    margin-bottom: 30px;
+}
+
+/* テーブル */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.detail-table th,
+.detail-table td {
+    padding: 20px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+/* 最後の行の下線はなし */
+.detail-table tr:last-child th,
+.detail-table tr:last-child td {
+    border-bottom: none;
+}
+
+.detail-table th {
+    text-align: left;
+    font-weight: normal;
+    font-size: 14px;
+    width: 150px;
+    color: #666;
+}
+
+.detail-table td {
+    text-align: left;
+    font-weight: bold;
+    font-size: 16px;
+    color: #000;
+}
+
+/* 年月日や時間の表示調整 */
+.date-display,
+.time-display {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.range-separator {
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+/* ボタンエリア（右寄せ） */
+.button-area {
+    text-align: center;
+    /* 画像に合わせて中央または右 */
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* 承認ボタン（黒） */
+.btn-approve {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 50px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-approve:hover {
+    opacity: 0.8;
+}
+
+/* 承認済みボタン（グレー・操作不可） */
+.btn-approved {
+    background-color: #666;
+    color: #fff;
+    border: none;
+    padding: 10px 50px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: default;
+    pointer-events: none;
+    /* クリック無効 */
+    display: inline-block;
+}
