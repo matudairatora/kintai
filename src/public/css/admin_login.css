@@ -1,0 +1,75 @@
+/* 管理者ログイン画面専用スタイル */
+
+/* フォームラッパー */
+.login-wrapper {
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 40px;
+    /* 必要であれば枠線や影 */
+    /* box-shadow: 0 0 10px rgba(0,0,0,0.05); */
+}
+
+/* タイトル "管理者ログイン" */
+.login-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #000;
+}
+
+/* 入力エリア */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* ラベル */
+.form-label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+/* 入力フィールド */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 40px;
+}
+
+/* ログインボタン */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: #000;
+    /* 黒背景 */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    display: block;
+}
+
+.btn-login:hover {
+    opacity: 0.8;
+}
+
+/* エラーメッセージ */
+.error-list {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}

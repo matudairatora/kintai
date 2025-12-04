@@ -11,7 +11,7 @@ use App\Http\Requests\AttendanceRequest;
 
 class AttendanceController extends Controller
 {
-   public function list(AttendanceRequest $request)
+   public function list(Request $request)
     {
         // 1. 日付の取得（パラメータがない場合は今日）
         $date = $request->input('date') ? Carbon::parse($request->input('date')) : Carbon::today();
@@ -38,7 +38,7 @@ class AttendanceController extends Controller
         return view('admin.attendance.show', compact('attendance'));
     }
 
-      public function update(AttendanceRequest $request, $id)
+      public function update(Request $request, $id)
     {
         $attendance = Attendance::findOrFail($id);
 

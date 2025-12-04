@@ -1,65 +1,66 @@
 @extends('layouts.app')
 
 @section('css')
-<style>
-    .date-nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin: 20px 0;
-    }
-    .date-nav a {
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background: #fff;
-        text-decoration: none;
-    }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-    th { background-color: #f2f2f2; }
-</style>
+<link rel="stylesheet" href="{{ asset('css/admin_attendance_list.css') }}">
 @endsection
 
 @section('content')
-    <div style="text-align: center;">
-        <h1>{{ $displayDate }}の勤怠</h1>
+    {{-- タイトル --}}
+    <h2 class="page-title">
+        {{ \Carbon\Carbon::parse($displayDate)->format('Y年n月j日') }}の勤怠
+    </h2>
 
-        <!-- 日付切り替えナビゲーション (FN035) -->
-        <div class="date-nav">
-            <a href="{{ route('admin.attendance.list', ['date' => $previousDate]) }}">&lt; 前日</a>
-            <span style="font-size: 1.2em; font-weight: bold;">{{ $displayDate }}</span>
-            <a href="{{ route('admin.attendance.list', ['date' => $nextDate]) }}">翌日 &gt;</a>
+    {{-- 日付ナビゲーション --}}
+    <div class="date-nav-wrapper">
+        <a href="{{ route('admin.attendance.list', ['date' => $previousDate]) }}" class="date-nav__link">
+            ← 前日
+        </a>
+        
+        <div class="date-nav__current">
+            <span>📅</span>
+            {{ $displayDate }}
         </div>
+
+        <a href="{{ route('admin.attendance.list', ['date' => $nextDate]) }}" class="date-nav__link">
+            翌日 →
+        </a>
     </div>
 
-    <table>
+    {{-- 勤怠テーブル --}}
+    <table class="admin-table">
         <thead>
             <tr>
                 <th>名前</th>
-                <th>勤務開始</th>
-                <th>勤務終了</th>
-                <th>休憩時間</th>
-                <th>勤務時間</th>
+                <th>出勤</th>
+                <th>退勤</th>
+                <th>休憩</th>
+                <th>合計</th>
                 <th>詳細</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($attendances as $attendance)
-                <tr>
-                    <td>{{ $attendance->user->name }}</td>
-                    <td>{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}</td>
-                    <td>{{ $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '' }}</td>
-                    
-                    <!-- モデルに追加したアクセサを利用 -->
-                    <td>{{ $attendance->total_rest_time }}</td>
-                    <td>{{ $attendance->total_work_time }}</td>
-                    
-                    <td>
-                        <a href="{{ route('admin.attendance.show', $attendance->id) }}">詳細</a>
-                    </td>
-                </tr>
+            <tr>
+                {{-- 名前 --}}
+                <td style="text-align: left; padding-left: 20px;">{{ $attendance->user->name }}</td>
+
+                {{-- 出勤 --}}
+                <td>{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}</td>
+
+                {{-- 退勤 --}}
+                <td>{{ $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '' }}</td>
+
+                {{-- 休憩 (モデルのアクセサを利用) --}}
+                <td>{{ $attendance->total_rest_time }}</td>
+
+                {{-- 合計 (モデルのアクセサを利用) --}}
+                <td>{{ $attendance->total_work_time }}</td>
+
+                {{-- 詳細 --}}
+                <td>
+                    <a href="{{ route('admin.attendance.show', $attendance->id) }}" class="detail-link">詳細</a>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
