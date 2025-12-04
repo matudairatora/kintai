@@ -5,6 +5,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\StampCorrectionRequestController;
 use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\VerificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,8 +25,14 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    
-    
+    Route::get('/email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+        ->middleware(['signed'])->name('verification.verify');
+    Route::post('/email/verification-notification', [VerificationController::class, 'send'])
+        ->middleware(['throttle:6,1'])->name('verification.send');
+ });   
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store'); 
     Route::get('/attendance/list', [AttendanceController::class, 'list'])->name('attendance.list');
