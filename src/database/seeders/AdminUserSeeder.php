@@ -26,37 +26,37 @@ class AdminUserSeeder extends Seeder
             'name' => '西怜奈',
             'email' => 'reina.n@coachtech.com',
             'password' => Hash::make('password'),
-            'role' => 0 // ★ここが重要！1なら管理者
+            'role' => 0 
         ],
         [   
             'name' => '山田太郎',
             'email' => 'taro.y@coachtech.com',
             'password' => Hash::make('password'),
-            'role' => 0 // ★ここが重要！1なら管理者
+            'role' => 0 
         ],
         [   
             'name' => '増田一世',
             'email' => 'issei.m@coachtech.com',
             'password' => Hash::make('password'),
-            'role' => 0 // ★ここが重要！1なら管理者
+            'role' => 0 
         ],
         [   
             'name' => '山本敬吉',
             'email' => 'keikichi.y@coachtech.com',
             'password' => Hash::make('password'),
-            'role' => 0 // ★ここが重要！1なら管理者
+            'role' => 0 
         ],
         [   
             'name' => '秋田朋美',
             'email' => 'tomomi.a@coachtech.com',
             'password' => Hash::make('password'),
-            'role' => 0 // ★ここが重要！1なら管理者
+            'role' => 0 
         ],
         [   
             'name' => '中西教夫',
             'email' => 'norio.n@coachtech.com',
             'password' => Hash::make('password'),
-            'role' => 0 // ★ここが重要！1なら管理者
+            'role' => 0 
         ],
         ];
         foreach ($users as $user) {
