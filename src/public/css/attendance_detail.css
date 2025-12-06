@@ -139,7 +139,6 @@
 /* 承認済みボタン（グレー） */
 .btn-approved {
     background-color: #666;
-    /* グレー */
     color: #fff;
     border: none;
     padding: 10px 40px;
@@ -147,13 +146,58 @@
     font-weight: bold;
     border-radius: 4px;
     cursor: default;
-    /* クリック不可に見せる */
     pointer-events: none;
-    /* クリック無効化 */
 }
 
 /* 名前表示など */
 .user-name {
     font-size: 16px;
     font-weight: bold;
+}
+
+/* -------------------------------------------
+   レスポンシブ対応
+------------------------------------------- */
+
+/* タブレット (768px - 850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+
+    .detail-title,
+    .detail-form {
+        width: 95%;
+        max-width: none;
+    }
+
+    .detail-form {
+        padding: 30px;
+    }
+
+    .detail-table th,
+    .detail-table td {
+        padding: 15px 10px;
+    }
+
+    .detail-table th {
+        width: 120px;
+        font-size: 13px;
+    }
+}
+
+/* PC (1400px - 1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+
+    .detail-title,
+    .detail-form {
+        max-width: 1000px;
+    }
+
+    .detail-form {
+        padding: 50px;
+    }
+
+    .detail-table th,
+    .detail-table td {
+        padding: 25px;
+        font-size: 16px;
+    }
 }

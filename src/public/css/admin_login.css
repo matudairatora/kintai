@@ -7,8 +7,6 @@
     max-width: 400px;
     margin: 60px auto;
     padding: 40px;
-    /* 必要であれば枠線や影 */
-    /* box-shadow: 0 0 10px rgba(0,0,0,0.05); */
 }
 
 /* タイトル "管理者ログイン" */
@@ -51,7 +49,6 @@
     width: 100%;
     padding: 12px;
     background-color: #000;
-    /* 黒背景 */
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -72,4 +69,47 @@
     font-size: 13px;
     margin-bottom: 20px;
     padding-left: 20px;
+}
+/* -------------------------------------------
+   レスポンシブ対応
+------------------------------------------- */
+
+/* タブレット (768px - 850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .login-wrapper {
+        margin: 80px auto;
+        width: 80%;
+    }
+
+    .login-title {
+        margin-bottom: 30px;
+    }
+}
+
+/* PC (1400px - 1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .login-wrapper {
+        margin: 100px auto;
+        max-width: 450px;
+        padding: 50px;
+    }
+
+    .login-title {
+        font-size: 24px;
+        margin-bottom: 50px;
+    }
+
+    .form-label {
+        font-size: 16px;
+    }
+
+    .form-input {
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .btn-login {
+        padding: 15px;
+        font-size: 16px;
+    }
 }

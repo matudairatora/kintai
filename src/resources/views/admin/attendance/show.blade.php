@@ -12,28 +12,16 @@
         @csrf
         @method('PATCH')
 
-        {{-- ▼▼▼ エラーメッセージ表示を追加 ▼▼▼ --}}
-        @if ($errors->any())
-            <div style="background-color: #ffe6e6; color: red; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
-                <ul style="margin: 0; padding-left: 20px;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+     
         {{-- ▲▲▲ 追加ここまで ▲▲▲ --}}
 
         <table class="detail-table">
-            <!-- 名前 -->
             <tr>
                 <th>名前</th>
                 <td>
                     <span class="detail-text">{{ $attendance->user->name }}</span>
                 </td>
             </tr>
-
-            <!-- 日付 -->
             <tr>
                 <th>日付</th>
                 <td>
@@ -42,8 +30,6 @@
                     </span>
                 </td>
             </tr>
-
-            <!-- 出勤・退勤 -->
             <tr>
                 <th>出勤・退勤</th>
                 <td>
@@ -55,6 +41,9 @@
                            value="{{ old('end_time', $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '') }}">
                 </td>
             </tr>
+            @error('end_time')
+            <tr><div class="error-message">{{ $message }}</div></tr>
+            @enderror
 
             <!-- 休憩（編集可能） -->
             @foreach($attendance->rests as $index => $rest)
@@ -71,6 +60,9 @@
                            value="{{ old('rests.'.$rest->id.'.end_time', $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '') }}">
                 </td>
             </tr>
+            @error('rests')
+            <tr><div class="error-message">{{ $message }}</div></tr>
+            @enderror
             @endforeach
 
             <!-- 備考 -->
@@ -80,6 +72,9 @@
                     <textarea name="reason" class="detail-textarea" placeholder="備考">{{ old('reason', $attendance->reason) }}</textarea>
                 </td>
             </tr>
+             @error('reason')
+            <div class="error-message">{{ $message }}</div>
+            @enderror
         </table>
 
         <div class="button-area">

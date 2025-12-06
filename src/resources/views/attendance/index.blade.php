@@ -35,7 +35,6 @@
                 <div class="attendance__tag">退勤済</div>
             @endif
         @else
-            <!-- デフォルト表示（変数が渡されていない場合） -->
             <div class="attendance__tag">勤務外</div>
         @endif
 

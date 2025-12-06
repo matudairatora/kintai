@@ -12,7 +12,6 @@
     <header class="header">
         <div class="header__left">
             <img src="{{ asset('img/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH" class="header__logo">
-            <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
         </div>
 
 </header>

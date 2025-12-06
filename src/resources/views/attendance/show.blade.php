@@ -12,16 +12,7 @@
         @csrf
         <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
 
-        {{-- エラーメッセージ表示エリア --}}
-        @if ($errors->any())
-            <div class="attendance__alert attendance__alert--danger" style="color: red; background-color: #ffe6e6; padding: 10px; margin-bottom: 20px; border-radius: 4px;">
-                <ul style="margin: 0; padding-left: 20px;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+  
         
         @if (session('message'))
             <div class="attendance__alert" style="color: green; background-color: #e6fffa; padding: 10px; margin-bottom: 20px; border-radius: 4px;">
@@ -72,6 +63,9 @@
                     @endif
                 </td>
             </tr>
+            @error('end_time')
+            <tr><div class="error-message">{{ $message }}</div></tr>
+            @enderror
 
             <!-- 休憩 -->
             @foreach($attendance->rests as $index => $rest)
@@ -103,6 +97,9 @@
             </tr>
             @endforeach
 
+            @error('rests')
+            <div class="error-message">{{ $message }}</div>
+            @enderror
             <!-- 備考 -->
             <tr>
                 <th>備考</th>
@@ -120,6 +117,9 @@
                     @endif
                 </td>
             </tr>
+            @error('reason')
+            <div class="error-message">{{ $message }}</div>
+            @enderror
         </table>
 
         @if($is_pending)

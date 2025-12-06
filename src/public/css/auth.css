@@ -1,6 +1,38 @@
+/* -------------------------------------------
+   基本設定・リセット
+------------------------------------------- */
+* {
+    box-sizing: border-box;
+ 
+}
 
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    
+}
 
-/* リンク（会員登録はこちら 等） */
+/* -------------------------------------------
+   ヘッダー (レイアウト崩れ防止用に追加)
+------------------------------------------- */
+.header {
+    width: 100%;
+    padding: 20px 5%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.header__logo {
+    max-width: 100%;
+    height: auto;
+    max-height: 50px;
+}
+
+/* -------------------------------------------
+   フォーム共通設定
+------------------------------------------- */
 .form-link {
     display: block;
     text-align: center;
@@ -10,15 +42,13 @@
     text-decoration: none;
 }
 
-/* フォームのラッパーを微調整（common.cssの設定をベースにしつつ上書き） */
+/* フォームのラッパー */
 .form-wrapper {
     background-color: #fff;
-    width: 100%;
+    width: 90%;
     max-width: 400px;
     margin: 40px auto;
-    /* 上下に余白 */
     padding: 40px;
-    /* 枠線や影が必要ない場合は以下を調整してください */
     box-shadow: none;
 }
 
@@ -51,11 +81,8 @@
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    /* 薄いグレーの枠線 */
     border-radius: 4px;
     background-color: #fff;
-    /* 画像に合わせて白背景に変更 */
-    box-sizing: border-box;
     font-size: 14px;
     height: 40px;
 }
@@ -65,9 +92,7 @@
     width: 100%;
     padding: 12px;
     background-color: #000;
-    /* 黒背景 */
     color: #fff;
-    /* 白文字 */
     border: none;
     border-radius: 4px;
     font-size: 14px;
@@ -90,7 +115,6 @@
 /* 青いリンク文字 */
 .form-link a {
     color: #3b82f6;
-    /* 鮮やかな青（画像に近い色） */
     text-decoration: none;
     font-size: 12px;
     display: inline-block;
@@ -105,5 +129,35 @@
 .error-message {
     color: red;
     font-size: 12px;
+    margin-top: 5px;
     margin-bottom: 20px;
+}
+
+/* -------------------------------------------
+   レスポンシブ対応 (指定範囲)
+------------------------------------------- */
+
+/* タブレット (768px - 850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .header {
+        padding: 20px 40px;
+    }
+
+    .form-wrapper {
+       
+        margin: 60px auto;
+        
+    }
+}
+
+/* PC (1400px - 1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .header {
+       
+        padding: 20px 15%;
+    }
+
+    .form-wrapper {
+        margin: 80px auto;
+    }
 }
