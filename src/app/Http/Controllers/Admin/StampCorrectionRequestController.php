@@ -11,7 +11,7 @@ class StampCorrectionRequestController extends Controller
 {
     public function index()
     {
-        // 申請データを取得（ユーザー情報と、対象の勤怠情報も一緒に）
+        // 申請データを取得
         $requests = StampCorrectionRequest::with(['user', 'attendance'])
                         ->orderBy('created_at', 'desc')
                         ->get();
@@ -35,10 +35,7 @@ class StampCorrectionRequestController extends Controller
         // 対象の申請を探す
         $stampRequest = StampCorrectionRequest::findOrFail($id);
 
-        // ▼▼▼ 修正ポイント ▼▼▼
-
         // 1. 実際の勤怠テーブルの時間を修正する
-        // 申請された新しい時間 (new_start_time, new_end_time) を Attendance テーブルに反映させます
         $attendance = Attendance::find($stampRequest->attendance_id);
         if ($attendance) {
             $attendance->update([
@@ -48,14 +45,13 @@ class StampCorrectionRequestController extends Controller
         }
 
         // 2. 申請ステータスを「承認済み」に変更する
-        // これを行わないと、ユーザー画面でいつまでも「承認待ち」と表示されてしまいます
         $stampRequest->update([
             'is_approved' => true,
             'status'      => '承認済み', 
         ]);
 
-        // ▲▲▲ 修正ここまで ▲▲▲
+        
 
-        return redirect()->back()->with('message', '申請を承認し、勤怠時間を更新しました。');
+        return redirect()->back();
     }
 }

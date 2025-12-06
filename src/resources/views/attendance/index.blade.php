@@ -21,8 +21,6 @@
 
     <!-- ステータスと日時表示 -->
     <div class="attendance__panel">
-        {{-- ▼ コントローラーから渡されたステータスに応じて表示を切り替える想定 --}}
-        {{-- $status: 0=勤務外, 1=出勤中, 2=休憩中, 3=退勤済 --}}
         
         @if(isset($status))
             @if($status == 0)
@@ -54,20 +52,16 @@
         @csrf
         <div class="attendance__button-area">
 
-            {{-- ▼ ケース1: 勤務外（出勤前） -> 「出勤」ボタンのみ --}}
             @if(!isset($status) || $status == 0)
                 <button type="submit" name="type" value="clock_in" class="attendance__button attendance__button--black">出勤</button>
             
-            {{-- ▼ ケース2: 出勤中（休憩していない） -> 「退勤」「休憩入」ボタン --}}
             @elseif($status == 1)
                 <button type="submit" name="type" value="clock_out" class="attendance__button attendance__button--black">退勤</button>
                 <button type="submit" name="type" value="break_start" class="attendance__button attendance__button--white">休憩入</button>
             
-            {{-- ▼ ケース3: 休憩中 -> 「休憩戻」ボタンのみ --}}
             @elseif($status == 2)
                 <button type="submit" name="type" value="break_end" class="attendance__button attendance__button--white">休憩戻</button>
             
-            {{-- ▼ ケース4: 退勤済 -> ボタンなし、メッセージ表示 --}}
             @elseif($status == 3)
                 <div class="attendance__message">お疲れ様でした。</div>
             

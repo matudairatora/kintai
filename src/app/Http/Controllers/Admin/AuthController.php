@@ -28,7 +28,7 @@ class AuthController extends Controller
 
             // roleが1（管理者）かチェック
             if (Auth::user()->role == 1) {
-                return redirect()->route('admin.attendance.list'); // 管理者一覧へ
+                return redirect()->route('admin.attendance.list'); 
             }
 
             // 管理者でない場合はログアウトさせて戻す

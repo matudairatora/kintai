@@ -24,10 +24,7 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        {{-- スタッフ別勤怠一覧へのリンク --}}
-                        {{-- ※ルートが未定義の場合は # にしています。実装後に書き換えてください --}}
-                        {{-- <a href="{{ route('admin.attendance.staff', $user->id) }}" class="detail-link">詳細</a> --}}
-                        <a href="{{ route('admin.attendance.staff_list', $user->id) }}" class="detail-link">詳細</a>
+                    <a href="{{ route('admin.attendance.staff_list', $user->id) }}" class="detail-link">詳細</a>
                     </td>
                 </tr>
                 @endforeach

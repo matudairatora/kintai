@@ -46,7 +46,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     
-    // 管理者用の勤怠一覧画面
     Route::get('/attendance/list', [AdminAttendanceController::class, 'list'])->name('admin.attendance.list');
     Route::get('/attendance/{id}', [AdminAttendanceController::class, 'show'])->name('admin.attendance.show');
     Route::patch('/attendance/{id}', [AdminAttendanceController::class, 'update'])->name('admin.attendance.update');

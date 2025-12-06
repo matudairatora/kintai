@@ -42,8 +42,7 @@ class AttendanceRequest extends FormRequest
             $start = isset($data['start_time']) ? Carbon::parse($data['start_time']) : null;
             $end = isset($data['end_time']) ? Carbon::parse($data['end_time']) : null;
             
-            // 休憩時間の取得（フォームの実装に合わせて調整が必要）
-            // ここでは単一の休憩入力がある前提の例です
+            // 休憩時間の取得
             $breakStart = isset($data['break_start']) ? Carbon::parse($data['break_start']) : null;
             $breakEnd = isset($data['break_end']) ? Carbon::parse($data['break_end']) : null;
 
@@ -52,7 +51,7 @@ class AttendanceRequest extends FormRequest
                  $validator->errors()->add('start_time', '出勤時間もしくは退勤時間が不適切な値です');
             }
 
-           // 2. 休憩時間のチェック（管理者画面からの配列データ 'rests' に対応）
+           // 2. 休憩時間のチェック
             if (isset($data['rests']) && is_array($data['rests'])) {
                 foreach ($data['rests'] as $id => $restData) {
                     $restStart = isset($restData['start_time']) && $restData['start_time'] ? Carbon::parse($restData['start_time']) : null;

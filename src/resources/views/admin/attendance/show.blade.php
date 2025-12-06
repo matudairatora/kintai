@@ -13,7 +13,6 @@
         @method('PATCH')
 
      
-        {{-- ▲▲▲ 追加ここまで ▲▲▲ --}}
 
         <table class="detail-table">
             <tr>

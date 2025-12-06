@@ -32,8 +32,6 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::with(['user', 'rests'])->findOrFail($id);
         
-        // 修正申請詳細画面へのリダイレクト判定などはここではなく、一覧のリンク先で制御済みと想定
-        // ここは純粋な勤怠編集画面
         return view('admin.attendance.show', compact('attendance'));
     }
 
@@ -48,7 +46,7 @@ class AttendanceController extends Controller
             'reason'     => $request->reason,
         ]);
 
-        // 2. 休憩時間の更新 (要件 FN038 対応)
+        // 2. 休憩時間の更新 
         if ($request->has('rests')) {
             foreach ($request->rests as $restId => $restData) {
                 $rest = Rest::find($restId);
@@ -61,8 +59,7 @@ class AttendanceController extends Controller
             }
         }
 
-        return redirect()->route('admin.attendance.list', ['date' => $attendance->date])
-                         ->with('message', '勤怠情報を修正しました。');
+        return redirect()->route('admin.attendance.list', ['date' => $attendance->date]);
     }
 
     public function staffList(Request $request, $id)
@@ -100,7 +97,7 @@ class AttendanceController extends Controller
         ));
     }
 
-    // ▼▼▼ 追加機能: CSV出力 (要件 FN045 対応) ▼▼▼
+    //  CSV出力 
     public function exportCsv(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -129,7 +126,6 @@ class AttendanceController extends Controller
         $response = new StreamedResponse(function () use ($csvHeader, $csvData) {
             $handle = fopen('php://output', 'w');
             
-            // 文字化け対策 (BOM付きUTF-8)
             fwrite($handle, "\xEF\xBB\xBF");
             
             fputcsv($handle, $csvHeader);

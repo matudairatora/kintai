@@ -41,7 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    // ユーザーはたくさんの勤怠記録を持つ
+    
     public function attendances()
     {
         return $this->hasMany(Attendance::class);

@@ -59,12 +59,10 @@ ul {
 /* メインコンテンツ */
 .content {
     flex: 1;
-    /* フッターを下に押し下げる */
     background-color: #fff;
     padding: 40px;
     width: 100%;
     max-width: 1200px;
-    /* 横幅の制限 */
     margin: 0 auto;
 }
 
@@ -73,9 +71,7 @@ ul {
     background-color: #fff;
     width: 100%;
     max-width: 400px;
-    /* フォームの横幅を制限 */
     margin: 0 auto;
-    /* 中央配置 */
     padding: 40px;
     border-radius: 5px;
     
@@ -101,9 +97,7 @@ ul {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f2f2f2;
-    /* 薄いグレーの背景 */
     box-sizing: border-box;
-    /* paddingを含めた幅計算 */
     font-size: 16px;
 }
 
@@ -112,7 +106,6 @@ ul {
     width: 100%;
     padding: 10px;
     background-color: #000;
-    /* ヘッダーに合わせた黒 */
     color: #fff;
     border: none;
     border-radius: 5px;
