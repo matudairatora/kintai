@@ -72,7 +72,7 @@
     ```
 
 ### 管理者ユーザー
-1.  name:管理者太郎
+1.  name:管理者太郎  
     email：
     ```text
     admin@example.com
@@ -82,8 +82,10 @@
     password
     ```
 
+    
+
 ### 一般ユーザー
-1.  name:西怜奈
+1.  name:西怜奈  
     email:
     ```text
     reina.n@coachtech.com
@@ -92,7 +94,9 @@
     ```text
     password
     ```
-2.  name:山田太郎
+
+
+2.  name:山田太郎  
     email:
     ```text
     taro.y@coachtech.com
@@ -101,7 +105,9 @@
     ```text
     password
     ```
-3.  name:増田一世
+
+
+3.  name:増田一世  
     email:
     ```text
     issei.m@coachtech.com
@@ -110,7 +116,9 @@
     ```text
     password
     ```
-4.  name:山本敬吉
+
+
+4.  name:山本敬吉  
     email:
     ```text
     keikichi.y@coachtech.com
@@ -119,7 +127,9 @@
     ```text
     password
     ```
-5.  name:秋田朋美
+
+
+5.  name:秋田朋美  
     email:
     ```text
     tomomi.a@coachtech.com
@@ -128,7 +138,9 @@
     ```text
     password
     ```
-6.  name:中西教夫
+
+
+6.  name:中西教夫  
     email:
     ```text
     norio.n@coachtech.com
