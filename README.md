@@ -29,11 +29,10 @@
 5. `php artisan key:generate`
 6. `php artisan migrate:fresh`
 7. `php artisan db:seed`
-8. `php artisan storage:link`
-9. `exit`
-10. `brew install mailhog`
-11. `brew services start mailhog`
-12. `sudo chmod -R 777 *`
+8. `exit`
+9. `brew install mailhog`
+10. `brew services start mailhog`
+11. `sudo chmod -R 777 *`
 
 
 
@@ -43,28 +42,28 @@
 
 ### 管理者ユーザー
 1.  name:管理者太郎
-    email：admin@example.com
-    password:password
+    email：`admin@example.com`
+    password:`password`
 
 ### 一般ユーザー
 1.  name:西怜奈
-    email:reina.n@coachtech.com'
-    password:password
+    email:`reina.n@coachtech.com`
+    password:`password`
 2.  name:山田太郎
-    email:taro.y@coachtech.com
-    password:password
+    email:`taro.y@coachtech.com`
+    password:`password`
 3.  name:増田一世
-    email:issei.m@coachtech.com
-    password:password
+    email:`issei.m@coachtech.com`
+    password:`password`
 4.  name:山本敬吉
-    email:keikichi.y@coachtech.com
-    password:password
+    email:`keikichi.y@coachtech.com`
+    password:`password`
 5.  name:秋田朋美
-    email:tomomi.a@coachtech.com
-    password:password
+    email:`tomomi.a@coachtech.com`
+    password:`password`
 6.  name:中西教夫
-    email:norio.n@coachtech.com
-    password:password
+    email:`norio.n@coachtech.com`
+    password:`password`
 
 ### 使用技術
 - PHP 8.0
