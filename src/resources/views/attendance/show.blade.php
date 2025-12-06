@@ -12,7 +12,7 @@
         @csrf
         <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
 
-        {{-- エラーメッセージ --}}
+        {{-- エラーメッセージ表示エリア --}}
         @if ($errors->any())
             <div class="attendance__alert attendance__alert--danger" style="color: red; background-color: #ffe6e6; padding: 10px; margin-bottom: 20px; border-radius: 4px;">
                 <ul style="margin: 0; padding-left: 20px;">
@@ -23,7 +23,6 @@
             </div>
         @endif
         
-        {{-- 完了メッセージ --}}
         @if (session('message'))
             <div class="attendance__alert" style="color: green; background-color: #e6fffa; padding: 10px; margin-bottom: 20px; border-radius: 4px;">
                 {{ session('message') }}
@@ -56,7 +55,6 @@
             <tr>
                 <th>出勤・退勤</th>
                 <td>
-                    {{-- 承認待ち または 承認済み の場合はテキスト表示 --}}
                     @if($is_pending || $is_approved)
                         <span class="detail-text">
                             {{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}
@@ -66,12 +64,11 @@
                             {{ $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '' }}
                         </span>
                     @else
-                        {{-- 通常時：入力フォーム --}}
                         <input type="time" name="start_time" class="detail-input" 
-                               value="{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}">
+                               value="{{ old('start_time', \Carbon\Carbon::parse($attendance->start_time)->format('H:i')) }}">
                         <span class="range-separator">～</span>
                         <input type="time" name="end_time" class="detail-input" 
-                               value="{{ $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '' }}">
+                               value="{{ old('end_time', $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '') }}">
                     @endif
                 </td>
             </tr>
@@ -90,12 +87,17 @@
                             {{ $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '' }}
                         </span>
                     @else
-                        <input type="hidden" name="rest_ids[]" value="{{ $rest->id }}">
-                        <input type="time" name="rest_starts[]" class="detail-input" 
-                               value="{{ \Carbon\Carbon::parse($rest->start_time)->format('H:i') }}">
+                        {{-- ▼▼▼ 修正箇所：name属性を rests[ID][key] の形式に変更 ▼▼▼ --}}
+                        <input type="hidden" name="rests[{{ $rest->id }}][id]" value="{{ $rest->id }}">
+                        
+                        <input type="time" name="rests[{{ $rest->id }}][start_time]" class="detail-input" 
+                               value="{{ old('rests.'.$rest->id.'.start_time', \Carbon\Carbon::parse($rest->start_time)->format('H:i')) }}">
+                        
                         <span class="range-separator">～</span>
-                        <input type="time" name="rest_ends[]" class="detail-input" 
-                               value="{{ $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '' }}">
+                        
+                        <input type="time" name="rests[{{ $rest->id }}][end_time]" class="detail-input" 
+                               value="{{ old('rests.'.$rest->id.'.end_time', $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '') }}">
+                        {{-- ▲▲▲ 修正ここまで ▲▲▲ --}}
                     @endif
                 </td>
             </tr>
@@ -114,13 +116,12 @@
                            承認済みのため修正できません。
                         </div>
                     @else
-                        <textarea name="reason" class="detail-textarea" rows="4" placeholder="修正理由を記述してください"></textarea>
+                        <textarea name="reason" class="detail-textarea" rows="4" placeholder="修正理由を記述してください">{{ old('reason') }}</textarea>
                     @endif
                 </td>
             </tr>
         </table>
 
-        {{-- ボタン表示エリア --}}
         @if($is_pending)
             <div class="button-area" style="justify-content: flex-start;">
                 <span class="pending-message">*承認待ちのため修正はできません。</span>

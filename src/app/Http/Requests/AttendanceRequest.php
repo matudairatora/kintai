@@ -29,7 +29,7 @@ class AttendanceRequest extends FormRequest
             'end_time' => 'required|after:start_time',
             'break_start' => 'nullable', 
             'break_end' => 'nullable',
-            'reason' => 'nullable',
+            'reason' => 'required',
         ];
     }
 
@@ -65,12 +65,12 @@ class AttendanceRequest extends FormRequest
 
                     // 勤務時間との整合性 (休憩開始 < 出勤)
                     if ($start && $restStart && $restStart->lt($start)) {
-                        $validator->errors()->add('rests', '休憩時間が勤務時間外（出勤前）に設定されています。');
+                        $validator->errors()->add('rests', '休憩時間が勤務時間外です。');
                     }
 
                     // 勤務時間との整合性 (休憩終了 > 退勤)
                     if ($end && $restEnd && $restEnd->gt($end)) {
-                        $validator->errors()->add('rests', '休憩時間が勤務時間外（退勤後）に設定されています。');
+                        $validator->errors()->add('rests', '休憩時間が勤務時間外です。');
                     }
                 }
             }
@@ -84,6 +84,7 @@ class AttendanceRequest extends FormRequest
             'start_time.required' => '出勤時間を入力してください',
             'end_time.required' => '退勤時間を入力してください',
             'end_time.after' => '出勤時間もしくは退勤時間が不適切な値です',
+            'reason.required' => '備考を記入してください'
         ];
     }
 

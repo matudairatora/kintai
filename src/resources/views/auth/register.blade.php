@@ -23,15 +23,7 @@
 <div class="form-wrapper">
     <h1 class="form-title">会員登録</h1>
 
-    @if ($errors->any())
-        <div class="error-message">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+  
 
     <form method="POST" action="{{ route('register') }}">
         @csrf
@@ -41,18 +33,26 @@
             <label class="form-label">名前</label>
             <input class="form-input" type="text" name="name" value="{{ old('name') }}">
         </div>
+        @error('name')
+            <div class="error-message">{{ $message }}</div>
+        @enderror
 
         <!-- メールアドレス -->
         <div class="form-item">
             <label class="form-label">メールアドレス</label>
-            <input class="form-input" type="email" name="email" value="{{ old('email') }}">
+            <input class="form-input"  name="email" value="{{ old('email') }}">
         </div>
-
+        @error('email')
+            <div class="error-message">{{ $message }}</div>
+        @enderror
         <!-- パスワード -->
         <div class="form-item">
             <label class="form-label">パスワード</label>
             <input class="form-input" type="password" name="password">
         </div>
+        @error('password')
+            <div class="error-message">{{ $message }}</div>
+        @enderror
 
         <!-- パスワード確認 -->
         <div class="form-item">

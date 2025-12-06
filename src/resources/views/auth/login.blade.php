@@ -26,14 +26,20 @@
         <!-- メールアドレス -->
         <div class="form-item">
             <label class="form-label">メールアドレス</label>
-            <input class="form-input" type="email" name="email" value="{{ old('email') }}">
+            <input class="form-input" name="email" value="{{ old('email') }}">
         </div>
+        @error('email')
+            <div class="error-message">{{ $message }}</div>
+        @enderror
 
         <!-- パスワード -->
         <div class="form-item">
             <label class="form-label">パスワード</label>
             <input class="form-input" type="password" name="password">
         </div>
+        @error('password')
+            <div class="error-message">{{ $message }}</div>
+        @enderror
 
         <button class="form-button" type="submit">ログインする</button>
     </form>

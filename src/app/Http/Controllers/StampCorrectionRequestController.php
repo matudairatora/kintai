@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\StampCorrectionRequest; 
 use App\Models\Attendance;             
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AttendanceRequest;
 
 class StampCorrectionRequestController extends Controller
 {
@@ -28,20 +29,20 @@ class StampCorrectionRequestController extends Controller
         return view('stamp_correction_request.index', compact('pendingRequests', 'approvedRequests'));
     }
 
-    public function store(Request $request)
+    public function store(AttendanceRequest $request)
     {
         // 1. バリデーション
-        $request->validate([
-            'attendance_id' => 'required|exists:attendances,id',
-            'reason' => 'required|string|max:255',
-            'start_time' => 'required',
-            'end_time' => 'required|after:start_time', // 退勤は出勤より後であること
-        ], [
-            'reason.required' => '修正理由は必須です。',
-            'start_time.required' => '出勤時間は必須です。',
-            'end_time.required' => '退勤時間は必須です。',
-            'end_time.after' => '退勤時間は出勤時間より後に設定してください。',
-        ]);
+       // $request->validate([
+         //   'attendance_id' => 'required|exists:attendances,id',
+         //   'reason' => 'required|string|max:255',
+         //   'start_time' => 'required',
+         //   'end_time' => 'required|after:start_time', // 退勤は出勤より後であること
+        //], [
+          //  'reason.required' => '修正理由は必須です。',
+          //  'start_time.required' => '出勤時間は必須です。',
+          //  'end_time.required' => '退勤時間は必須です。',
+          //  'end_time.after' => '退勤時間は出勤時間より後に設定してください。',
+        //]);
 
         // 2. 権限チェック（自分の勤怠か）
         $attendance = Attendance::find($request->attendance_id);
