@@ -79,7 +79,6 @@ body {
 /* ボタンエリア（右寄せ） */
 .button-area {
     text-align: center;
-    /* 画像に合わせて中央または右 */
     display: flex;
     justify-content: center;
     margin-top: 30px;
@@ -114,6 +113,57 @@ body {
     border-radius: 4px;
     cursor: default;
     pointer-events: none;
-    /* クリック無効 */
     display: inline-block;
+}
+
+/* -------------------------------------------
+   レスポンシブ対応
+------------------------------------------- */
+
+/* タブレット (768px - 850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .detail-wrapper {
+        width: 95%;
+        max-width: none;
+    }
+
+    .detail-container {
+        padding: 20px;
+    }
+
+    .detail-table th,
+    .detail-table td {
+        padding: 15px 5px;
+        font-size: 14px;
+    }
+
+    .detail-table th {
+        width: 120px;
+    }
+
+    .date-display,
+    .time-display {
+        gap: 20px;
+    }
+}
+
+/* PC (1400px - 1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .detail-wrapper {
+        max-width: 1200px;
+    }
+
+    .detail-container {
+        padding: 50px;
+    }
+
+    .detail-table th,
+    .detail-table td {
+        padding: 25px 20px;
+        font-size: 16px;
+    }
+
+    .detail-table th {
+        width: 180px;
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoginRequest; 
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
     }
 
     // ログイン処理
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -38,7 +39,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'メールアドレスまたはパスワードが正しくありません。',
+            'email' => 'ログイン情報が登録されていません。',
         ]);
     }
 }

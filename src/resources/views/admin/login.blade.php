@@ -18,28 +18,26 @@
         <div class="login-wrapper">
             <h1 class="login-title">管理者ログイン</h1>
 
-            @if ($errors->any())
-                <ul class="error-list">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-
             <form method="POST" action="{{ route('admin.login.submit') }}">
                 @csrf
                 
                 <!-- メールアドレス -->
                 <div class="form-group">
                     <label class="form-label">メールアドレス</label>
-                    <input class="form-input" type="email" name="email" value="{{ old('email') }}">
+                    <input class="form-input"  name="email" value="{{ old('email') }}">
                 </div>
+                @error('email')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
 
                 <!-- パスワード -->
                 <div class="form-group">
                     <label class="form-label">パスワード</label>
                     <input class="form-input" type="password" name="password">
                 </div>
+                @error('password')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
 
                 <button class="btn-login" type="submit">管理者ログインする</button>
             </form>

@@ -12,7 +12,6 @@
      margin-bottom: 40px;
      padding-left: 15px;
      border-left: 5px solid #333;
-     /* 黒い縦線 */
      text-align: left;
      color: #333;
  }
@@ -21,14 +20,10 @@
  .staff-table {
      width: 100%;
      border-collapse: collapse;
-     /* セルの隙間をなくす */
      background-color: #fff;
-     /* 背景色を白に */
      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-     /* 軽い影をつける */
      border-radius: 5px;
      overflow: hidden;
-     /* 角丸を有効にするため */
  }
 
  .staff-table th,
@@ -60,4 +55,37 @@
 
  .detail-link:hover {
      text-decoration: underline;
+ }
+
+ /* -------------------------------------------
+   レスポンシブ対応
+------------------------------------------- */
+
+ /* タブレット (768px - 850px) */
+ @media screen and (min-width: 768px) and (max-width: 850px) {
+     .staff-list-container {
+         width: 95%;
+         max-width: none;
+         padding: 30px 10px;
+     }
+
+     .staff-table th,
+     .staff-table td {
+         padding: 12px 10px;
+         font-size: 13px;
+     }
+ }
+
+ /* PC (1400px - 1540px) */
+ @media screen and (min-width: 1400px) and (max-width: 1540px) {
+     .staff-list-container {
+         max-width: 1200px;
+         padding: 50px 20px;
+     }
+
+     .staff-table th,
+     .staff-table td {
+         padding: 25px 20px;
+         font-size: 16px;
+     }
  }

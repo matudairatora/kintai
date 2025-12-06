@@ -21,7 +21,6 @@ body {
     margin-bottom: 40px;
     padding-left: 10px;
     border-left: 5px solid #000;
-    /* 黒い縦線 */
     line-height: 1.2;
 }
 
@@ -31,7 +30,6 @@ body {
     padding: 40px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    /* うっすら影 */
 }
 
 /* テーブルスタイル */
@@ -77,7 +75,6 @@ body {
     font-size: 16px;
     background-color: #fff;
     width: 140px;
-    /* 時間入力などに適した幅 */
     text-align: center;
 }
 
@@ -121,4 +118,50 @@ body {
 
 .btn-submit:hover {
     opacity: 0.8;
+}
+
+/* -------------------------------------------
+   レスポンシブ対応
+------------------------------------------- */
+
+/* タブレット (768px - 850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .detail-wrapper {
+        width: 95%;
+        max-width: none;
+    }
+
+    .detail-form {
+        padding: 20px;
+    }
+
+    .detail-table th {
+        width: 120px;
+        font-size: 13px;
+    }
+
+    .detail-table td {
+        padding: 15px 5px;
+    }
+}
+
+/* PC (1400px - 1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .detail-wrapper {
+        max-width: 1200px;
+    }
+
+    .detail-form {
+        padding: 50px;
+    }
+
+    .detail-table th,
+    .detail-table td {
+        padding: 25px 15px;
+        font-size: 16px;
+    }
+
+    .detail-input {
+        width: 160px;
+    }
 }

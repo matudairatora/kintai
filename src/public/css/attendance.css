@@ -11,13 +11,11 @@
 .attendance__tag {
     display: inline-block;
     background-color: #ddd;
-    /* グレーの背景 */
     color: #555;
     font-size: 14px;
     font-weight: bold;
     padding: 5px 20px;
     border-radius: 20px;
-    /* 角丸のピル型 */
     margin-bottom: 20px;
 }
 
@@ -32,7 +30,6 @@
 /* 時間表示 */
 .attendance__time {
     font-size: 64px;
-    /* かなり大きく */
     font-weight: bold;
     color: #000;
     margin-bottom: 40px;
@@ -52,7 +49,6 @@
     display: flex;
     justify-content: center;
     gap: 20px;
-    /* ボタン間の隙間 */
     margin-bottom: 40px;
 }
 
@@ -65,7 +61,6 @@
     cursor: pointer;
     transition: opacity 0.3s;
     min-width: 140px;
-    /* ボタンの幅を揃える */
     border: none;
 }
 
@@ -83,8 +78,6 @@
 .attendance__button--white {
     background-color: #fff;
     color: #000;
-    /* 必要なら枠線を追加 */
-    /* border: 1px solid #ddd; */
 }
 
 /* メッセージ表示エリア（成功・エラー） */
@@ -99,4 +92,54 @@
 
 .attendance__alert--danger {
     color: red;
+}
+/* -------------------------------------------
+   レスポンシブ対応
+------------------------------------------- */
+
+/* タブレット (768px - 850px) */
+@media screen and (min-width: 768px) and (max-width: 850px) {
+
+
+    .attendance__content {
+        padding-top: 60px;
+    }
+
+    .attendance__time {
+        font-size: 56px;
+        margin-bottom: 30px;
+    }
+
+    .attendance__button {
+        padding: 15px 30px;
+        min-width: 120px;
+    }
+
+    .attendance__button-area {
+        gap: 15px;
+    }
+}
+
+/* PC (1400px - 1540px) */
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+
+    .attendance__content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 80px;
+    }
+
+    .attendance__time {
+        font-size: 80px;
+        margin-bottom: 50px;
+    }
+
+    .attendance__button-area {
+        gap: 40px;
+    }
+
+    .attendance__button {
+        padding: 20px 50px;
+        font-size: 18px;
+    }
 }
