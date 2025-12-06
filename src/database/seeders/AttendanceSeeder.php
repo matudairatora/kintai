@@ -47,9 +47,7 @@ class AttendanceSeeder extends Seeder
 
             // 日付を1日ずつ進めながら処理
             while ($currentDate->lte($endDate)) {
-                // ■「適度に休む」ロジック
-                // ここではシンプルに「土日は休み」とします
-                // (isWeekend() は土日なら true を返します)
+
                 if (!$currentDate->isWeekend()) {
                     
                     // 1. 勤怠データの作成 (08:00 - 18:00)
@@ -69,7 +67,6 @@ class AttendanceSeeder extends Seeder
                     ]);
                 }
 
-                // 次の日に進める
                 $currentDate->addDay();
             }
         }

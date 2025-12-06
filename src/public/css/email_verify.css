@@ -2,19 +2,16 @@
 
 body {
     background-color: #fff;
-    /* 画像に合わせて背景白 */
     font-family: sans-serif;
     margin: 0;
     color: #333;
 }
 
-/* ヘッダー等は共通CSSまたはHTML内で指定されている前提 */
 
 .verify-wrapper {
     width: 100%;
     max-width: 600px;
     margin: 100px auto;
-    /* 上に少し余白 */
     padding: 0 20px;
     text-align: center;
     box-sizing: border-box;
@@ -33,16 +30,13 @@ body {
 .btn-dummy-verify {
     display: inline-block;
     background-color: #dcdcdc;
-    /* 画像のような薄いグレー */
     color: #000;
     border: 1px solid #999;
-    /* 薄い枠線 */
     border-radius: 5px;
     padding: 10px 50px;
     font-size: 14px;
     font-weight: bold;
     cursor: default;
-    /* クリックしても何も起きない見た目にする場合 */
     text-decoration: none;
     margin-bottom: 30px;
 }
@@ -56,7 +50,6 @@ body {
     background: none;
     border: none;
     color: #66aaff;
-    /* 画像のような水色っぽい青 */
     font-size: 12px;
     cursor: pointer;
     text-decoration: none;

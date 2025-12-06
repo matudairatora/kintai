@@ -18,13 +18,11 @@ class StampCorrectionRequest extends Model
         'new_end_time', 
     ];
 
-    // ユーザーとの関係
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // 勤怠との関係
     public function attendance()
     {
         return $this->belongsTo(Attendance::class);

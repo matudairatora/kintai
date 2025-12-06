@@ -38,7 +38,9 @@
 
 ### PHPunitテスト
 1.  `php artisan config:clear`
-8.  `php artisan test`
+2.  `composer dump-autoload`
+3.  `php artisan test`
+4.  `php artisan migrate:fresh --seed`
 
 ### 管理者ユーザー
 1.  name:管理者太郎
@@ -71,7 +73,6 @@
 - MySQL 8.0
 - mailhog v1.0.1
 - Fortify
-- stripe 17.0
 
 ### ER図
 - ![ER図](src/public/img/ER図.png)

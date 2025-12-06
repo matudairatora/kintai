@@ -11,9 +11,9 @@ class Attendance extends Model
     use HasFactory;
     protected $fillable = [
        'user_id',
-        'date',         // 日付
-        'start_time',   // 出勤時間
-        'end_time',     // 退勤時間
+        'date',         
+        'start_time',   
+        'end_time',     
         'status',   
     ];
     
@@ -31,7 +31,6 @@ class Attendance extends Model
         return gmdate('H:i', $totalSeconds);
     }
 
-    // 勤務時間の合計（退勤 - 出勤 - 休憩合計）
     public function getTotalWorkTimeAttribute()
     {
         if (!$this->end_time) {
@@ -41,10 +40,9 @@ class Attendance extends Model
         $start = Carbon::parse($this->start_time);
         $end = Carbon::parse($this->end_time);
         
-        // 滞在時間（秒）
+    
         $staySeconds = $start->diffInSeconds($end);
 
-        // 休憩時間（秒）を引く
         $restSeconds = 0;
         foreach ($this->rests as $rest) {
             if ($rest->start_time && $rest->end_time) {
@@ -58,13 +56,11 @@ class Attendance extends Model
     }
 
 
-    // ユーザーとの関係（多対1）
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // 休憩との関係（1対多）
     public function rests()
     {
         return $this->hasMany(Rest::class);

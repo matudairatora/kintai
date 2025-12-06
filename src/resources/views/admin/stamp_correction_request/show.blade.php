@@ -32,7 +32,6 @@
                 <th>出勤・退勤</th>
                 <td>
                     <div class="time-display">
-                        {{-- 申請された新しい時間を表示 --}}
                         <span>{{ \Carbon\Carbon::parse($correctionRequest->new_start_time)->format('H:i') }}</span>
                         <span class="range-separator">～</span>
                         <span>{{ $correctionRequest->new_end_time ? \Carbon\Carbon::parse($correctionRequest->new_end_time)->format('H:i') : '' }}</span>

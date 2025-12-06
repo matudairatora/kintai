@@ -8,25 +8,20 @@
 <div class="request-list-wrapper">
     <h2 class="page-title">申請一覧</h2>
 
-    {{-- コントローラーから渡された $requests をステータスで振り分け --}}
     @php
         $pendingRequests = $requests->where('is_approved', false);
         $approvedRequests = $requests->where('is_approved', true);
     @endphp
 
     <div class="tab-wrap">
-        {{-- ラジオボタン（タブ切り替え用） --}}
         <input id="tab1" type="radio" name="tab-item" checked>
         <input id="tab2" type="radio" name="tab-item">
 
-        {{-- タブラベル --}}
         <label class="tab-label" for="tab1">承認待ち</label>
         <label class="tab-label" for="tab2">承認済み</label>
 
-        {{-- タブの下線 --}}
         <div class="tab-border"></div>
 
-        {{-- ▼ コンテンツ1：承認待ち一覧 --}}
         <div id="content1" class="tab-content">
             <table class="request-table">
                 <thead>
@@ -59,7 +54,6 @@
             @endif
         </div>
 
-        {{-- ▼ コンテンツ2：承認済み一覧 --}}
         <div id="content2" class="tab-content">
             <table class="request-table">
                 <thead>

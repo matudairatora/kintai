@@ -12,13 +12,7 @@
         @csrf
         <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
 
-  
-        
-        @if (session('message'))
-            <div class="attendance__alert" style="color: green; background-color: #e6fffa; padding: 10px; margin-bottom: 20px; border-radius: 4px;">
-                {{ session('message') }}
-            </div>
-        @endif
+
 
         <table class="detail-table">
             <!-- 名前 -->
@@ -81,7 +75,6 @@
                             {{ $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '' }}
                         </span>
                     @else
-                        {{-- ▼▼▼ 修正箇所：name属性を rests[ID][key] の形式に変更 ▼▼▼ --}}
                         <input type="hidden" name="rests[{{ $rest->id }}][id]" value="{{ $rest->id }}">
                         
                         <input type="time" name="rests[{{ $rest->id }}][start_time]" class="detail-input" 
@@ -91,7 +84,6 @@
                         
                         <input type="time" name="rests[{{ $rest->id }}][end_time]" class="detail-input" 
                                value="{{ old('rests.'.$rest->id.'.end_time', $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '') }}">
-                        {{-- ▲▲▲ 修正ここまで ▲▲▲ --}}
                     @endif
                 </td>
             </tr>

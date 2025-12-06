@@ -44,8 +44,6 @@ class AttendanceController extends Controller
         $timestamp = Carbon::now();
         $date = Carbon::today();
 
-        // どのボタンが押されたかで処理を分岐
-        // ビュー側で <button name="type" value="clock_in"> のように送ります
         $type = $request->input('type');
 
         // --- 出勤処理 ---
@@ -60,7 +58,7 @@ class AttendanceController extends Controller
                 'start_time' => $timestamp,
                 'status' => '出勤中',
             ]);
-            return redirect()->back()->with('message', '出勤しました！');
+            return redirect()->back();
         }
 
         // --- 退勤処理 ---
@@ -72,7 +70,7 @@ class AttendanceController extends Controller
                 'end_time' => $timestamp,
                 'status' => '退勤済',
             ]);
-            return redirect()->back()->with('message', '退勤しました。');
+            return redirect()->back();
         }
 
         // --- 休憩開始 ---
@@ -83,7 +81,7 @@ class AttendanceController extends Controller
             Rest::create(['attendance_id' => $attendance->id, 'start_time' => $timestamp]);
             $attendance->update(['status' => '休憩中']);
             
-            return redirect()->back()->with('message', '休憩開始しました。');
+            return redirect()->back();
         }
 
         // --- 休憩終了 ---
@@ -95,7 +93,7 @@ class AttendanceController extends Controller
                 $rest->update(['end_time' => $timestamp]);
                 $attendance->update(['status' => '出勤中']);
             }
-            return redirect()->back()->with('message', '休憩終了しました。');
+            return redirect()->back();
         }
 
         return redirect()->back();
@@ -128,7 +126,7 @@ class AttendanceController extends Controller
         // 勤怠自体のステータスも更新
         $attendance->update(['status' => '休憩中']);
 
-        return redirect()->back()->with('message', '休憩を開始しました。');
+        return redirect()->back();
     }
 
     // ▼ 休憩終了アクション
@@ -144,9 +142,8 @@ class AttendanceController extends Controller
             return redirect()->back()->with('error', '休憩中ではありません。');
         }
 
-        // 「終わっていない休憩」を探して終了時間を入れる
         $rest = Rest::where('attendance_id', $attendance->id)
-                    ->whereNull('end_time') // 終了時間がまだ空のものを探す
+                    ->whereNull('end_time') 
                     ->first();
 
         if ($rest) {
@@ -155,21 +152,19 @@ class AttendanceController extends Controller
             ]);
         }
 
-        // ステータスを出勤中に戻す
         $attendance->update(['status' => '出勤中']);
 
-        return redirect()->back()->with('message', '休憩を終了しました。');
+        return redirect()->back();
     }
     public function list(Request $request)
     {
         $user = Auth::user();
 
-        // 1. カレンダー操作（パラメータがない場合は今月）
+        // 1. カレンダー操作
         $currentDate = $request->input('month') 
             ? Carbon::parse($request->input('month')) 
             : Carbon::now();
 
-        // 月の開始日と終了日を取得
         $startOfMonth = $currentDate->copy()->startOfMonth();
         $endOfMonth = $currentDate->copy()->endOfMonth();
 
@@ -186,12 +181,12 @@ class AttendanceController extends Controller
         for ($date = $startOfMonth->copy(); $date->lte($endOfMonth); $date->addDay()) {
             $dateStr = $date->format('Y-m-d');
             
-            // その日の勤怠データがあれば取得、なければnull
+            
             $attendanceForDay = $attendances->get($dateStr);
 
             $calendar[] = [
                 'date' => $dateStr,
-                'date_display' => $date->format('m/d') . '(' . $date->isoFormat('ddd') . ')', // 例: 06/01(木)
+                'date_display' => $date->format('m/d') . '(' . $date->isoFormat('ddd') . ')', 
                 'attendance' => $attendanceForDay,
             ];
         }
@@ -199,7 +194,7 @@ class AttendanceController extends Controller
         // 4. 前月・翌月のリンク用データを作成
         $previousMonth = $currentDate->copy()->subMonth()->format('Y-m');
         $nextMonth = $currentDate->copy()->addMonth()->format('Y-m');
-        $currentMonthDisplay = $currentDate->format('Y/m'); // 例: 2023/06
+        $currentMonthDisplay = $currentDate->format('Y/m'); 
 
         return view('attendance.list', compact(
             'calendar', 
@@ -224,7 +219,7 @@ class AttendanceController extends Controller
         if (class_exists('App\Models\StampCorrectionRequest')) {
             // 最新の申請を取得してステータスを確認
             $latestRequest = StampCorrectionRequest::where('attendance_id', $attendance->id)
-                                ->latest() // 最新順
+                                ->latest() 
                                 ->first();
             
             if ($latestRequest) {

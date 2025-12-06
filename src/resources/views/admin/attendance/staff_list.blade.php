@@ -57,7 +57,7 @@
         </tbody>
     </table>
     
-    {{-- CSV出力ボタン (有効化) --}}
+    {{-- CSV出力ボタン --}}
     <div class="button-area">
         <form action="{{ route('admin.attendance.csv_export', $user->id) }}" method="GET">
             {{-- 現在表示している月を送信 --}}

@@ -13,7 +13,7 @@ class Rest extends Model
         'start_time',
         'end_time',
     ];
-    // 勤怠との関係（多対1）
+    
     public function attendance()
     {
         return $this->belongsTo(Attendance::class);
