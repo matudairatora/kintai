@@ -1,11 +1,18 @@
 # coachtech 勤怠管理
 ## 環境構築
 ### Dockerビルド
-1. `git clone git@github.com:matudairatora/furima.git`
-2. `docker-compose up -d --build`
+1.  ```code 
+    git clone git@github.com:matudairatora/furima.git
+    ```
+2.  ```code 
+    docker-compose up -d --build
+    ```
 #### Laravel環境構築
-1. `docker-compose exec php bash`
-2. `composer install`
+1.  ```code 
+    docker-compose exec php bash```
+2.  ```code 
+    composer install
+    ```
 3. .env.exampleファイルから.envを作成し、環境変数を変更
 4. .envに以下の環境変数を追加
     ``` text
@@ -26,46 +33,91 @@
     MAIL_FROM_NAME="${APP_NAME}"
 
     ```
-5. `php artisan key:generate`
-6. `php artisan migrate:fresh`
-7. `php artisan db:seed`
-8. `exit`
-9. `brew install mailhog`
-10. `brew services start mailhog`
-11. `sudo chmod -R 777 *`
+5.  ```code 
+    php artisan key:generate
+    ```
+6.  ```
+    php artisan migrate:fresh
+    ```
+7.  ```
+    php artisan db:seed
+    ```
+8.  ```code
+    exit
+    ```
+9.  ```code
+    brew install mailhog
+    ```
+10. ```code
+    brew services start mailhog
+    ```
+11. ```code
+    sudo chmod -R 777 *
+    ```
 
 
 
 ### PHPunitテスト
-1.  `php artisan config:clear`
-2.  `composer dump-autoload`
-3.  `php artisan test`
-4.  `php artisan migrate:fresh --seed`
+1.  ```code
+    php artisan config:clear
+    ```
+2.  ```code
+    composer dump-autoload
+    ```
+3.  ```code
+    php artisan test
+    ```
+4.  ```code
+    php artisan migrate:fresh --seed
+    ```
 
 ### 管理者ユーザー
 1.  name:管理者太郎
-    email：`admin@example.com`
-    password:`password`
+    email：```
+    admin@example.com
+    ```
+    password:```
+    password
+    ```
 
 ### 一般ユーザー
 1.  name:西怜奈
-    email:`reina.n@coachtech.com`
-    password:`password`
+    email:```
+    reina.n@coachtech.com
+    ```
+    password:```
+    password
+    ```
 2.  name:山田太郎
-    email:`taro.y@coachtech.com`
-    password:`password`
+    email:```
+    taro.y@coachtech.com
+    ```
+    password:```
+    password```
 3.  name:増田一世
-    email:`issei.m@coachtech.com`
-    password:`password`
+    email:```
+    issei.m@coachtech.com
+    ```
+    password:```
+    password
+    ```
 4.  name:山本敬吉
-    email:`keikichi.y@coachtech.com`
+    email:```
+    keikichi.y@coachtech.com
+    ```
     password:`password`
 5.  name:秋田朋美
-    email:`tomomi.a@coachtech.com`
+    email:```
+    tomomi.a@coachtech.com
+    ```
     password:`password`
 6.  name:中西教夫
-    email:`norio.n@coachtech.com`
-    password:`password`
+    email:```
+    norio.n@coachtech.com
+    ```
+    password:```
+    password
+    ```
 
 ### 使用技術
 - PHP 8.0
