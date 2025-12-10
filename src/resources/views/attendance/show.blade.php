@@ -12,7 +12,11 @@
         @csrf
         <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
 
-
+        @if (session('message'))
+            <div class="attendance__alert" >
+                {{ session('message') }}
+            </div>
+        @endif
 
         <table class="detail-table">
             <!-- 名前 -->
@@ -40,7 +44,15 @@
             <tr>
                 <th>出勤・退勤</th>
                 <td>
-                    @if($is_pending || $is_approved)
+                    @if($is_pending)
+                        <span class="detail-text">
+                            {{ \Carbon\Carbon::parse($latestRequest->new_start_time)->format('H:i') }}
+                        </span>
+                        <span class="range-separator">～</span>
+                        <span class="detail-text">
+                            {{ $latestRequest->new_end_time ? \Carbon\Carbon::parse($latestRequest->new_end_time)->format('H:i') : '' }}
+                        </span>
+                    @elseif($is_approved)
                         <span class="detail-text">
                             {{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}
                         </span>
@@ -49,22 +61,29 @@
                             {{ $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '' }}
                         </span>
                     @else
-                        <input type="time" name="start_time" class="detail-input" 
-                               value="{{ old('start_time', \Carbon\Carbon::parse($attendance->start_time)->format('H:i')) }}">
+                        {{-- 通常時は入力欄を表示 --}}
+                        <input type="time" name="start_time" class="detail-input" value="{{ old('start_time', \Carbon\Carbon::parse($attendance->start_time)->format('H:i')) }}">
                         <span class="range-separator">～</span>
-                        <input type="time" name="end_time" class="detail-input" 
-                               value="{{ old('end_time', $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '') }}">
+                        <input type="time" name="end_time" class="detail-input" value="{{ old('end_time', $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '') }}">
                     @endif
                 </td>
             </tr>
             @error('end_time')
-            <tr><div class="error-message">{{ $message }}</div></tr>
+            <tr><td colspan="2"><div class="error-message">{{ $message }}</div></td></tr>
             @enderror
 
             <!-- 休憩 -->
-            @foreach($attendance->rests as $index => $rest)
+            @php
+                if ($is_pending && isset($latestRequest)) {
+                    $displayRests = $latestRequest->stamp_correction_request_rests;
+                } else {
+                    $displayRests = $attendance->rests;
+                }
+            @endphp
+
+            @foreach($displayRests as $index => $rest)
             <tr>
-                <th>休憩{{ $index > 0 ? $index + 1 : '' }}</th>
+                <th>休憩{{ $index + 1 }}</th>
                 <td>
                     @if($is_pending || $is_approved)
                         <span class="detail-text">
@@ -89,33 +108,41 @@
             </tr>
             @endforeach
 
+            @if(!($is_pending || $is_approved))
+            <tr>
+                <th>休憩{{ count($attendance->rests) + 1 }}</th>
+                <td>
+                    <input type="time" name="rests[new][start_time]" class="detail-input" value="{{ old('rests.new.start_time') }}">
+                    <span class="range-separator">～</span>
+                    <input type="time" name="rests[new][end_time]" class="detail-input" value="{{ old('rests.new.end_time') }}">
+                </td>
+            </tr>
+            @endif
+            
             @error('rests')
-            <div class="error-message">{{ $message }}</div>
+            <tr><td colspan="2"><div class="error-message">{{ $message }}</div></td></tr>
             @enderror
+
             <!-- 備考 -->
             <tr>
                 <th>備考</th>
                 <td>
                     @if($is_pending)
-                        <div class="detail-textarea" style="background-color: #f9f9f9; border:none; color: #777;">
-                           承認待ちのため修正できません。
-                        </div>
+                        <div>{{ $latestRequest->reason }}</div>
                     @elseif($is_approved)
-                        <div class="detail-textarea" style="background-color: #f9f9f9; border:none; color: #777;">
-                           承認済みのため修正できません。
-                        </div>
+                        <div>{{ $attendance->reason }}</div>
                     @else
-                        <textarea name="reason" class="detail-textarea" rows="4" placeholder="修正理由を記述してください">{{ old('reason') }}</textarea>
+                        <textarea name="reason" class="detail-textarea" rows="4">{{ old('reason', $attendance->reason) }}</textarea>
                     @endif
                 </td>
             </tr>
             @error('reason')
-            <div class="error-message">{{ $message }}</div>
+            <tr><td colspan="2"><div class="error-message">{{ $message }}</div></td></tr>
             @enderror
         </table>
 
         @if($is_pending)
-            <div class="button-area" style="justify-content: flex-start;">
+            <div class="button-area">
                 <span class="pending-message">*承認待ちのため修正はできません。</span>
             </div>
         @elseif($is_approved)

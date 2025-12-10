@@ -9,7 +9,8 @@
     ```
 #### Laravel環境構築
 1.  ```code 
-    docker-compose exec php bash```
+    docker-compose exec php bash
+    ```
 2.  ```code 
     composer install
     ```
@@ -59,12 +60,17 @@
 
 ### PHPunitテスト
 1.  ```code
-    php artisan config:clear
+    docker-compose exec mysql bash
     ```
 2.  ```code
-    composer dump-autoload
+    mysql -u root -p
     ```
-3.  ```code
+3.    ```code
+    CREATE DATABASE laravel_test;
+    GRANT ALL PRIVILEGES ON laravel_test.* TO 'laravel_user'@'%';
+    EXIT;
+    ```
+4.  ```code
     php artisan test
     ```
 4.  ```code
@@ -161,5 +167,7 @@
 - ![ER図](src/public/img/ER図.png)
 ### URL
 - 開発環境 http://localhost/
+- 管理者ログイン画面 http://localhost/admin/login
+- 一般ユーザーログイン画面 http://localhost/login
 - phpMyAdmin http://localhost:8080/
 - MailHog http://localhost:8025/

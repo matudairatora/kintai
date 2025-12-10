@@ -39,10 +39,17 @@
                 </td>
             </tr>
 
-            <!-- 休憩 -->
-            @foreach($attendance->rests as $index => $rest)
+            <!-- 休憩（ここを修正！） -->
+            {{-- 申請された休憩データがあればそれを、なければ元のデータを使用 --}}
+            @php
+                $displayRests = $correctionRequest->stamp_correction_request_rests->isNotEmpty() 
+                                ? $correctionRequest->stamp_correction_request_rests 
+                                : $attendance->rests;
+            @endphp
+
+            @foreach($displayRests as $index => $rest)
             <tr>
-                <th>休憩{{ $index > 0 ? $index + 1 : '' }}</th>
+                <th>休憩{{ $index + 1 }}</th>
                 <td>
                     <div class="time-display">
                         <span>{{ \Carbon\Carbon::parse($rest->start_time)->format('H:i') }}</span>

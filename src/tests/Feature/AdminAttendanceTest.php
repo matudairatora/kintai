@@ -27,11 +27,9 @@ class AdminAttendanceTest extends TestCase
         $admin = $this->createAdmin();
         $user = User::factory()->create(['name' => 'General User']);
         
-        // 今日の勤怠
         Attendance::factory()->create([
             'user_id' => $user->id,
-            'date' => Carbon::today(),
-            'start_time' => '09:00:00',
+            'date' => Carbon::today()->format('Y-m-d'), 
         ]);
 
         $response = $this->actingAs($admin)->get(route('admin.attendance.list'));
@@ -52,18 +50,18 @@ class AdminAttendanceTest extends TestCase
     {
         $admin = $this->createAdmin();
         $user = User::factory()->create();
+    
         $attendance = Attendance::factory()->create([
             'user_id' => $user->id,
+            'date' => Carbon::today()->format('Y-m-d'), 
             'start_time' => '09:00:00',
             'end_time' => '18:00:00',
         ]);
 
-        // 詳細画面表示
         $response = $this->actingAs($admin)->get(route('admin.attendance.show', $attendance->id));
         $response->assertStatus(200);
         $response->assertSee('09:00');
 
-        // 正常更新
         $response = $this->actingAs($admin)->patch(route('admin.attendance.update', $attendance->id), [
             'start_time' => '10:00',
             'end_time' => '19:00',
@@ -98,13 +96,13 @@ class AdminAttendanceTest extends TestCase
         ]);
         $response->assertSessionHasErrors(['start_time']);
 
-       
+        // 2. 休憩時間が勤務時間外
         $response = $this->actingAs($admin)->patch(route('admin.attendance.update', $attendance->id), [
             'start_time' => '09:00',
             'end_time' => '18:00',
             'rests' => [
                 [
-                    'start_time' => '19:00', // 退勤後
+                    'start_time' => '19:00',
                     'end_time' => '19:30',
                 ]
             ],
@@ -145,8 +143,11 @@ class AdminAttendanceTest extends TestCase
     {
         $admin = $this->createAdmin();
         $user = User::factory()->create();
+        
+        // 日付を指定して作成
         $attendance = Attendance::factory()->create([
             'user_id' => $user->id,
+            'date' => Carbon::today()->format('Y-m-d'), 
             'start_time' => '09:00:00',
             'end_time' => '18:00:00',
         ]);
@@ -158,28 +159,25 @@ class AdminAttendanceTest extends TestCase
             'new_end_time' => '19:00',
             'reason' => '遅刻修正',
             'is_approved' => false,
-            'requested_at' => now(),
+            'status' => '承認待ち', 
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
-        // 承認待ち一覧確認
         $response = $this->actingAs($admin)->get(route('admin.stamp_correction_request.list'));
         $response->assertSee('承認待ち');
         $response->assertSee('遅刻修正');
 
-        // 承認詳細画面
         $response = $this->actingAs($admin)->get(route('admin.stamp_correction_request.show', $request->id));
         $response->assertSee('承認');
 
-        // 承認実行
         $this->actingAs($admin)->get(route('admin.stamp_correction_request.approve', $request->id));
 
-        // DB更新確認
         $this->assertDatabaseHas('stamp_correction_requests', [
             'id' => $request->id,
             'is_approved' => true,
         ]);
 
-        // 勤怠データ本体が更新されているか
         $this->assertDatabaseHas('attendances', [
             'id' => $attendance->id,
             'start_time' => '10:00:00',

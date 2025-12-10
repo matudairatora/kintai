@@ -19,9 +19,7 @@ use App\Http\Controllers\VerificationController;
 Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
 
-Route::get('/', function () {
-    return redirect('/login');
-});
+Route::get('/', function () {return redirect('/login');});
 
 
 Route::middleware(['auth'])->group(function () {

@@ -22,7 +22,6 @@ class AttendanceController extends Controller
         $attendance = Attendance::where('user_id', $user->id)->where('date', $date)->first();
 
         // ステータス判定ロジック
-        // 0=勤務外, 1=出勤中, 2=休憩中, 3=退勤済
         $status = 0; 
 
         if ($attendance) {
@@ -48,7 +47,6 @@ class AttendanceController extends Controller
 
         // --- 出勤処理 ---
         if ($type === 'clock_in') {
-            // すでに出勤済みかチェック
             if (Attendance::where('user_id', $user->id)->where('date', $date)->exists()) {
                  return redirect()->back()->with('error', 'すでに出勤しています。');
             }
@@ -104,12 +102,10 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
 
-        // 今日の勤怠を取得
         $attendance = Attendance::where('user_id', $user->id)
                             ->where('date', Carbon::today())
                             ->first();
 
-        // エラーチェック
         if (!$attendance) {
             return redirect()->back()->with('error', '出勤していません。');
         }
@@ -117,19 +113,16 @@ class AttendanceController extends Controller
             return redirect()->back()->with('error', 'すでに休憩中です。');
         }
 
-        // 休憩テーブルに新しいレコードを作成
         Rest::create([
             'attendance_id' => $attendance->id,
             'start_time' => Carbon::now(),
         ]);
 
-        // 勤怠自体のステータスも更新
         $attendance->update(['status' => '休憩中']);
 
         return redirect()->back();
     }
 
-    // ▼ 休憩終了アクション
     public function breakEnd()
     {
         $user = Auth::user();
@@ -160,7 +153,6 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
 
-        // 1. カレンダー操作
         $currentDate = $request->input('month') 
             ? Carbon::parse($request->input('month')) 
             : Carbon::now();
@@ -168,7 +160,6 @@ class AttendanceController extends Controller
         $startOfMonth = $currentDate->copy()->startOfMonth();
         $endOfMonth = $currentDate->copy()->endOfMonth();
 
-        // 2. その月の勤怠データを取得し、日付(Y-m-d)をキーにしてコレクション化
         $attendances = Attendance::where('user_id', $user->id)
                                  ->whereBetween('date', [$startOfMonth, $endOfMonth])
                                  ->get()
@@ -176,12 +167,9 @@ class AttendanceController extends Controller
                                      return Carbon::parse($item->date)->format('Y-m-d');
                                  });
 
-        // 3. カレンダーデータの作成（勤怠がない日も含めるためのループ処理）
         $calendar = [];
         for ($date = $startOfMonth->copy(); $date->lte($endOfMonth); $date->addDay()) {
             $dateStr = $date->format('Y-m-d');
-            
-            
             $attendanceForDay = $attendances->get($dateStr);
 
             $calendar[] = [
@@ -191,7 +179,6 @@ class AttendanceController extends Controller
             ];
         }
 
-        // 4. 前月・翌月のリンク用データを作成
         $previousMonth = $currentDate->copy()->subMonth()->format('Y-m');
         $nextMonth = $currentDate->copy()->addMonth()->format('Y-m');
         $currentMonthDisplay = $currentDate->format('Y/m'); 
@@ -212,13 +199,13 @@ class AttendanceController extends Controller
             abort(404);
         }
 
-        // 申請状況のチェック
         $is_pending = false;
         $is_approved = false;
+        $latestRequest = null; 
         
         if (class_exists('App\Models\StampCorrectionRequest')) {
-            // 最新の申請を取得してステータスを確認
-            $latestRequest = StampCorrectionRequest::where('attendance_id', $attendance->id)
+            $latestRequest = StampCorrectionRequest::with('stamp_correction_request_rests')
+                                ->where('attendance_id', $attendance->id)
                                 ->latest() 
                                 ->first();
             
@@ -231,6 +218,7 @@ class AttendanceController extends Controller
             }
         }
 
-        return view('attendance.show', compact('attendance', 'is_pending', 'is_approved'));
+        
+        return view('attendance.show', compact('attendance', 'is_pending', 'is_approved', 'latestRequest'));
     }
 }

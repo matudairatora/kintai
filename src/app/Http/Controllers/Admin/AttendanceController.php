@@ -39,22 +39,32 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::findOrFail($id);
 
-        // 1. 勤怠本体の更新
         $attendance->update([
             'start_time' => $request->start_time,
             'end_time'   => $request->end_time,
             'reason'     => $request->reason,
         ]);
 
-        // 2. 休憩時間の更新 
         if ($request->has('rests')) {
             foreach ($request->rests as $restId => $restData) {
-                $rest = Rest::find($restId);
-                if ($rest && $rest->attendance_id == $attendance->id) {
-                    $rest->update([
+                
+                if (empty($restData['start_time'])) {
+                    continue;
+                }
+
+                if ($restId === 'new') {
+                    $attendance->rests()->create([
                         'start_time' => $restData['start_time'],
-                        'end_time'   => $restData['end_time'],
+                        'end_time'   => $restData['end_time'] ?? null,
                     ]);
+                } else {
+                    $rest = Rest::find($restId);
+                    if ($rest && $rest->attendance_id == $attendance->id) {
+                        $rest->update([
+                            'start_time' => $restData['start_time'],
+                            'end_time'   => $restData['end_time'],
+                        ]);
+                    }
                 }
             }
         }

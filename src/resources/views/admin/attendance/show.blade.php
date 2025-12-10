@@ -59,16 +59,25 @@
                            value="{{ old('rests.'.$rest->id.'.end_time', $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '') }}">
                 </td>
             </tr>
+            
+            @endforeach
+            <tr>
+                <th>休憩{{ count($attendance->rests) + 1 }}</th>
+                <td>
+                    {{-- キーを 'new' にしてコントローラーで新規作成と判別させる --}}
+                    <input type="time" name="rests[new][start_time]" class="detail-input" value="{{ old('rests.new.start_time') }}">
+                    <span class="range-separator">～</span>
+                    <input type="time" name="rests[new][end_time]" class="detail-input" value="{{ old('rests.new.end_time') }}">
+                </td>
+            </tr>
             @error('rests')
             <tr><div class="error-message">{{ $message }}</div></tr>
             @enderror
-            @endforeach
-
             <!-- 備考 -->
             <tr>
                 <th>備考</th>
                 <td>
-                    <textarea name="reason" class="detail-textarea" placeholder="備考">{{ old('reason', $attendance->reason) }}</textarea>
+                    <textarea name="reason" class="detail-textarea" rows="4" >{{ $attendance->reason }}</textarea>
                 </td>
             </tr>
              @error('reason')

@@ -1,10 +1,5 @@
 /* 管理者勤怠詳細画面のスタイル */
 
-/* ページ全体の背景（念のため） */
-body {
-    background-color: #f7f7f7;
-}
-
 /* コンテンツラッパー */
 .detail-wrapper {
     width: 100%;
@@ -26,17 +21,27 @@ body {
 
 /* フォーム全体を囲む白いボックス */
 .detail-form {
-    background-color: #fff;
     padding: 40px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+   
 }
 
 /* テーブルスタイル */
 .detail-table {
+    background-color: #fff;
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 40px;
+    border-radius: 5px;
+}
+
+.detail-table tr:first-child th,
+.detail-table tr:first-child td {
+    border-top: none;
+}
+
+.detail-table tr:last-child th,
+.detail-table tr:last-child td {
+    border-bottom: none;
 }
 
 .detail-table th,
@@ -101,6 +106,8 @@ body {
 .button-area {
     text-align: center;
     margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 /* 修正ボタン（黒） */
