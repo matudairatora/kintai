@@ -65,7 +65,7 @@
 2.  ```code
     mysql -u root -p
     ```
-3.    ```code
+3.  ```code
     CREATE DATABASE laravel_test;
     GRANT ALL PRIVILEGES ON laravel_test.* TO 'laravel_user'@'%';
     EXIT;
