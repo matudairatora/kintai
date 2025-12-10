@@ -2,7 +2,7 @@
 ## 環境構築
 ### Dockerビルド
 1.  ```code 
-    git clone git@github.com:matudairatora/furima.git
+    git clone git@github.com:matudairatora/kintai.git
     ```
 2.  ```code 
     docker-compose up -d --build
